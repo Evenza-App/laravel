@@ -24,8 +24,9 @@ class AuthenticationController extends Controller
         }
 
         $token = $user->createToken('token')->plainTextToken;
-
-        return response(['token' => $token]);
+        return response([
+            'token' => $token
+        ]);
     }
 
 
@@ -36,7 +37,8 @@ class AuthenticationController extends Controller
         $user = Euser::create($request->validated());
 
         $token = $user->createToken('token')->plainTextToken;
-
-        return response(['token' => $token]);
+        return response([
+            'token' => $token
+        ]);
     }
 }
