@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CustomerResource\RelationManagers;
+use Filament\Forms\Components\Fieldset;
 
 class CustomerResource extends Resource
 {
@@ -48,20 +49,24 @@ class CustomerResource extends Resource
                         Forms\Components\Textarea::make('address')
                             ->required(),
                         //->columnSpanFull(),
+                        // Forms\Components\Select::make('user_id')
+                        //     ->relationship('user', 'id')
+                        //     ->required(),
                     ])->columns(2),
 
-                Forms\Components\Select::make('email')
-                    ->relationship('user', 'email')
-                    ->label('Email')
-                    ->required(),
-                Forms\Components\Select::make('password')
-                    ->relationship('user', 'password')
-                    ->label('Password')
-                    // ->password()
-                    ->required(),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'id')
-                    ->required(),
+                Fieldset::make('User')
+                    ->relationship('user')
+                    ->schema([
+                        Forms\Components\TextInput::make('email')
+                            ->label('Email')
+                            ->hiddenOn('edit')
+                            ->required(),
+                        Forms\Components\TextInput::make('password')
+                            ->label('Password')
+                            ->hiddenOn('edit')
+                            ->password()
+                            ->required(),
+                    ]),
             ]);
     }
 
@@ -70,14 +75,8 @@ class CustomerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(isIndividual: true),
-                //->hidden(true)
-                //->hidden(auth()->user()->email === 'zeina@gmail.com')
-                //->hidden(!auth()->user()->email === 'zeina@gmail.com')
-                // ->visible(auth()->user()->email === 'zeina@gmail.com')
-                // ->visible(!auth()->user()->email === 'zeina@gmail.com')
-                //  ->searchable(isIndividual: true),
-                // ->searchable(isIndividual: true, isGlobal:false),
+                    // ->searchable(isIndividual: true),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('birthDate')
                     ->date()
                     ->sortable(),
@@ -90,11 +89,6 @@ class CustomerResource extends Resource
                     ->label('Password')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('user.id')
-                    ->numeric()
-                    ->sortable()
-                    ->label('User id')
-                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -108,9 +102,11 @@ class CustomerResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    //   Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -20,19 +20,19 @@ class ListBuffets extends ListRecords
         ];
     }
 
-    public function getTabs(): array
-    {
-        return ([
-            'All' => Tab::make(),
-            'This Week' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('created_at'), '=', now()->subWeek())
-                ->badge(Buffet::query()->where(('created_at'), '>', now()->subWeek())->count()),
-            'This Month' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('created_at'), '=', now()->subMonth())
-                ->badge(Buffet::query()->where(('created_at'), '>', now()->subMonth())->count()),
-            'This Year' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('created_at'), '=', now()->subYear())
-                ->badge(Buffet::query()->where(('created_at'), '>', now()->subYear())->count()),
-        ]);
-    }
+    // public function getTabs(): array
+    // {
+    //     return ([
+    //         'All' => Tab::make(),
+    //         'This Week' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('created_at'), '=', now()->subWeek())
+    //             ->badge(Buffet::query()->where(('created_at'), '>', now()->subWeek())->count()),
+    //         'This Month' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('created_at'), '=', now()->subMonth())
+    //             ->badge(Buffet::query()->where(('created_at'), '>', now()->subMonth())->count()),
+    //         'This Year' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('created_at'), '=', now()->subYear())
+    //             ->badge(Buffet::query()->where(('created_at'), '>', now()->subYear())->count()),
+    //     ]);
+    // }
 }

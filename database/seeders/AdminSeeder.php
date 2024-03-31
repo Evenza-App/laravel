@@ -14,9 +14,13 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'email' => 'zeina@gmail.com',
             'password' => Hash::make('password'),
+        ]);
+
+        $user->admin()->create([
+            'name' => 'Ziena',
         ]);
     }
 }

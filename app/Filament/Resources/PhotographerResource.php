@@ -2,33 +2,33 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BuffetResource\Pages;
-use App\Filament\Resources\BuffetResource\RelationManagers;
-use App\Models\Buffet;
+use App\Filament\Resources\PhotographerResource\Pages;
+use App\Filament\Resources\PhotographerResource\RelationManagers;
+use App\Models\Photographer;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BuffetResource extends Resource
+class PhotographerResource extends Resource
 {
-    protected static ?string $model = Buffet::class;
+    protected static ?string $model = Photographer::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chart-pie';
+    protected static ?string $navigationIcon = 'heroicon-o-camera';
 
-    protected static ?string $navigationLabel = 'Buffet';
+    protected static ?string $navigationLabel = 'Photographer';
 
-    protected static ?string $modelLabel = 'Evenza Buffet';
+    // protected static ?string $modelLabel = 'Photographer';
 
-    protected static ?string $slug = 'evenza-buffets';
+    protected static ?int $navigationSort = 3;
 
-    protected static ?int $navigationSort = 2;
+    protected static ?string $slug = 'photographers';
 
     protected static ?string $navigationGroup = 'System Management';
+
 
     public static function form(Form $form): Form
     {
@@ -37,23 +37,21 @@ class BuffetResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('ingredients')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('type')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
                     ->image()
-                    ->imageEditor()
                     ->required(),
-                Forms\Components\TextInput::make('price')
+                Forms\Components\Textarea::make('bio')
                     ->required()
-                    ->numeric()
-                    ->prefix('SYR'),
-                Forms\Components\Select::make('category_id')
-                    ->relationship('category', 'name')
-                    ->required(),
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('numOfhours')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\FileUpload::make('images')
+                    //->required()
+                    ->multiple()
+                    ->imageEditor()
+                    ->directory('images')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -61,18 +59,13 @@ class BuffetResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category.name')
+                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\TextColumn::make('numOfhours')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('type')
-                    ->searchable(),
-                //->searchable(isIndividual: true),
-                Tables\Columns\TextColumn::make('price')
-                    ->money('SYR')
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('images'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -83,12 +76,7 @@ class BuffetResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('Category')
-                    ->relationship('category', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->label('Filter by Catergory')
-                    ->indicator('Buffet Category'),
+                //
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -114,9 +102,9 @@ class BuffetResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBuffets::route('/'),
-            'create' => Pages\CreateBuffet::route('/create'),
-            'edit' => Pages\EditBuffet::route('/{record}/edit'),
+            'index' => Pages\ListPhotographers::route('/'),
+            'create' => Pages\CreatePhotographer::route('/create'),
+            'edit' => Pages\EditPhotographer::route('/{record}/edit'),
         ];
     }
 }

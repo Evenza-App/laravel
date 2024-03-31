@@ -18,13 +18,15 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function getFilamentName(): string
     {
-        return "{$this->email}";
+        return "{$this->admin->name}";
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
-        // return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
-        return true;
+        if ($panel->getId() == 'admin' && $this->admin) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -68,5 +70,15 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
+    }
+
+    /**
+     * Get the user associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function admin(): HasOne
+    {
+        return $this->hasOne(Admin::class);
     }
 }
