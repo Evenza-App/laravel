@@ -26,7 +26,7 @@ class BuffetResource extends Resource
 
     protected static ?string $slug = 'evenza-buffets';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationGroup = 'System Management';
 
@@ -64,6 +64,8 @@ class BuffetResource extends Resource
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('ingredients')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('category.name')
                     ->numeric()
                     ->sortable(),

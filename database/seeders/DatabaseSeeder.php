@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             BuffetSeeder::class,
             PhotographerSeeder::class,
+            EventSeeder::class,
+            EventDetailSeeder::class,
         ]);
     }
 }

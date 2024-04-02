@@ -24,7 +24,7 @@ class SearchBuffetRequest extends FormRequest
     {
         return [
             'category' => ['required', 'integer', 'exists:categories,id'],
-            'type' => ['required', 'string', 'in:فطور,غداء,'],
+            'type' => ['required', 'string', 'in: فطور ,غداء ,حلويات ,كيك'],
             'search' => ['nullable', 'string'],
         ];
     }

@@ -34,7 +34,7 @@ class CustomerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Customer details')
-                    ->description('Put the Customer inforamation details here.')
+                    ->description(' the Customer inforamation details here.')
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->required()
@@ -82,6 +82,7 @@ class CustomerResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('address'),
                 Tables\Columns\TextColumn::make('user.email')
                     ->label('Email')
                     ->searchable(),

@@ -12,7 +12,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('/customers', [CustomerController::class, 'get_all_customers']);
+Route::get('/customers', [CustomerController::class, 'index']);
 
 Route::post('login', [AuthenticationController::class, 'login']);
 
