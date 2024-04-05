@@ -31,49 +31,49 @@ class PhotographerSeeder extends Seeder
         DB::table('photographers')->delete();
         $photograohers = array(
             array(
-                'name' => 'ليليان وهبي', 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui', 'bio' => 'تصوير جميع المناسبات
+                'name' => 'ليليان وهبي', 'image' => 'Ellipse 6.png', 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات',
                 'numOfhours' => 3,
                 'images' => json_encode([
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
+                    'url' => 'Ellipse 6.png',
+                    'url' => 'Ellipse 6.png',
+                    'url' => 'Ellipse 6.png',
                 ]),
             ),
             array(
-                'name' => 'سعيد مصلح', 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui', 'bio' => 'تصوير جميع المناسبات
+                'name' => 'سعيد مصلح', 'image' => 'Ellipse 6-2.png', 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات
             بالإضافة إلى تصوير حديثي الولادة',
                 'numOfhours' => 3,
                 'images' => json_encode([
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
+                    'url' => 'Ellipse 6-2.png',
+                    'url' => 'Ellipse 6-2.png',
+                    'url' => 'Ellipse 6-2.png',
                 ]),
             ),
             array(
                 'name' => 'هبة جويد',
-                'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
+                'image' => 'Ellipse 6-1.png',
                 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات
             بالإضافة إلى تصوير حديثي الولادة',
                 'numOfhours' => 3,
                 'images' => json_encode([
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
+                    'url' => 'Ellipse 6-1.png',
+                    'url' => 'Ellipse 6-1.png',
+                    'url' => 'Ellipse 6-1.png',
                 ]),
             ),
             array(
-                'name' =>  ' ساهر سويدان ', 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
+                'name' =>  ' ساهر سويدان ', 'image' => 'Ellipse 6-3.png',
                 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات
             بالإضافة إلى تصوير حديثي الولادة',
                 'numOfhours' => 3,
                 'images' => json_encode([
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
-                    'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
+                    'url' => 'Ellipse 6-3.png',
+                    'url' => 'Ellipse 6-3.png',
+                    'url' => 'Ellipse 6-3.png',
                 ]),
             ),
         );

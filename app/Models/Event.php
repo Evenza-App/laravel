@@ -22,4 +22,14 @@ class Event extends Model
     {
         return $this->hasMany(EventDetail::class);
     }
+
+    /**
+     * Get all of the comments for the Event
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BuffetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\PhotographerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +23,7 @@ Route::post('register', [AuthenticationController::class, 'register']);
 Route::apiResource('categories', CategoryController::class);
 
 Route::apiResource('buffet', BuffetController::class);
+
+Route::apiResource('photographer', PhotographerController::class);
+
+Route::apiResource('events', EventController::class);

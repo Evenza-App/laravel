@@ -30,10 +30,12 @@ class RegisterRequest extends FormRequest
             'birthDate' => ['required', 'date', 'before:' . now()->startOfYear()->subYears(10)->toDateString()],
             'phone' => ['required', 'string', 'min:10', 'max:10'],
             'address' => ['required', 'string'],
-            'password' => ['required', 'string', Password::defaults()->min(5)->max(10)
-                ->letters()
-                ->symbols()
-                ->numbers()],
+            'password' => [
+                'required', 'string', Password::defaults()->min(5)->max(10)
+                    ->letters()
+                // ->symbols()
+                // ->numbers()
+            ],
         ];
     }
 }

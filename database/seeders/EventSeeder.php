@@ -22,12 +22,12 @@ class EventSeeder extends Seeder
         // ]);
         DB::table('events')->delete();
         $events = array(
-            array('name' => 'عيد ميلاد', 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui'),
-            array('name' => ' افتتاح ', 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui'),
-            array('name' => 'حفل زفاف', 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui'),
-            array('name' => 'حفلة خطوبة', 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui'),
-            array('name' => 'حفلة تحديد جنس المولود', 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui'),
-            array('name' => 'حفلة تخرج', 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui'),
+            array('name' => 'عيد ميلاد', 'image' => 'birthday.png'),
+            array('name' => ' افتتاح ', 'image' => 'افتتاح.png'),
+            array('name' => 'حفل زفاف', 'image' => 'زواج.png'),
+            array('name' => 'حفلة خطوبة', 'image' => 'خطبة.png'),
+            array('name' => 'حفلة تحديد جنس المولود', 'image' => 'تحديد حنس المولود.png'),
+            array('name' => 'حفلة تخرج', 'image' => 'تخرج.png'),
         );
         DB::table('events')->insert($events);
     }

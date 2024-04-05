@@ -31,9 +31,9 @@ class CategorySeeder extends Seeder
 
         DB::table('categories')->delete();
         $categories = array(
-            array('name' => "شرقي", 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui'),
-            array('name' => "غربي", 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui'),
-            array('name' => "حلويات", 'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui'),
+            array('name' => "شرقي", 'image' => 'شرقي.png'),
+            array('name' => "غربي", 'image' => 'غربي.png'),
+            array('name' => "حلويات", 'image' => 'حلويات.png'),
         );
         DB::table('categories')->insert($categories);
     }
