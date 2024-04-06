@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PhotographerResource\Pages;
 use App\Filament\Resources\PhotographerResource\RelationManagers;
 use App\Models\Photographer;
+use App\Traits\Filament\HasTranslations;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,13 +16,15 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PhotographerResource extends Resource
 {
+    use HasTranslations;
+
     protected static ?string $model = Photographer::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-camera';
 
     protected static ?string $navigationLabel = 'Photographer';
 
-    // protected static ?string $modelLabel = 'Photographer';
+    protected static ?string $modelLabel = 'Photographer';
 
     protected static ?int $navigationSort = 4;
 

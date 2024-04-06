@@ -6,6 +6,7 @@ use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Buffet;
 use App\Models\Category;
+use App\Traits\Filament\HasTranslations;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -17,6 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CategoryResource extends Resource
 {
+
+    use HasTranslations;
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-wallet';
