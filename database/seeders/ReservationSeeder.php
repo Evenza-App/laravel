@@ -30,7 +30,7 @@ class ReservationSeeder extends Seeder
                 'date' => '2000-06-17', 'time' => '07:28:21', 'location' => '704 Prosacco Islands
            Malliechester, OH 36330-4126', 'numberOfPeople' => 45,
                 'image' => 'Rectangle 16-4.png',
-                'status' => ' مقبول ', 'event_id' => 3, 'photographer_id' => 3, 'user_id' => 4
+                'status' => ' مقبول', 'event_id' => 3, 'photographer_id' => 3, 'user_id' => 4
             ),
 
             array(

@@ -33,6 +33,11 @@ class ReservationResource extends Resource
 
     protected static ?string $navigationGroup = 'Customer Management';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -92,8 +97,8 @@ class ReservationResource extends Resource
                     ->badge()
                     //->getStateUsing(fn (Reservation $record): string => $record->status?->'مقبول' ? 'مرفوض' : 'مقبول')
                     ->getStateUsing(function (Reservation $record) {
-                        if ($record->status == ' مقبول ') {
-                            return ' مقبول ';
+                        if ($record->status == ' مقبول') {
+                            return ' مقبول';
                         } elseif ($record->status == 'مرفوض') {
                             return 'مرفوض';
                         } elseif ($record->status == 'قيد المعالجة') {
@@ -101,7 +106,7 @@ class ReservationResource extends Resource
                         }
                     })
                     ->colors([
-                        'success' => ' مقبول ',
+                        'success' => ' مقبول',
                         'danger' => 'مرفوض',
                         'warning' => 'قيد المعالجة',
                     ])
@@ -131,97 +136,100 @@ class ReservationResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make(),
-                    Tables\Actions\Action::make('مرفوض')
-                        ->label(function (Reservation $record) {
-                            if ($record->status == ' مقبول ') {
-                                return 'رفض';
-                            } elseif ($record->status == 'مرفوض') {
-                                return ' قبول ';
-                            } elseif ($record->status == 'قيد المعالجة') {
-                                return 'قيد المعالجة';
-                            }
-                        })
-                        ->color(function (Reservation $record) {
-                            if ($record->status == ' مقبول ') {
-                                return 'danger';
-                            } elseif ($record->status == 'مرفوض') {
-                                return 'success';
-                            } elseif ($record->status == 'قيد المعالجة') {
-                                return 'warning';
-                            }
-                        })
-                        ->icon(function (Reservation $record) {
-                            if ($record->status == ' مقبول ') {
-                                return 'heroicon-c-face-frown';
-                            } elseif ($record->status == 'مرفوض') {
-                                return 'heroicon-c-face-smile';
-                            } elseif ($record->status == 'قيد المعالجة') {
-                                return 'heroicon-c-arrow-path';
-                            }
-                        })
-                        ->requiresConfirmation(fn (Reservation $record) => $record->status == ' مقبول ')
-                        ->action(function (Reservation $record) {
-                            // $record->status =  !$record->status;
-                            // $record->save();
-                            $record->refresh();
-                            if ($record->status == ' مقبول ') {
-                                $record->status = 'مرفوض';
-                                $record->save();
-                                Notification::make('مرفوض')
-                                    ->title('تم رفض الحجز')
-                                    ->body("حجز يوم{$record->date} تم رفضه")
-                                    ->success()
-                                    ->send();
-                                $record->refresh();
-                            } elseif ($record->status == 'مرفوض') {
-                                $record->status = ' مقبول ';
-                                $record->save();
-                                Notification::make(' مقبول ')
-                                    ->title('تم قبول الحجز')
-                                    ->body("حجز يوم{$record->date} تم قبول")
-                                    ->success()
-                                    ->send();
-                                $record->refresh();
-                            } else {
-                                $record->status =  'قيد المعالجة';
-                                $record->save();
-                                Notification::make('قيد المعالجة')
-                                    ->title('قيد المعالجة')
-                                    ->body("حجز يوم{$record->date} يتم معالجة")
-                                    ->success()
-                                    ->send();
-                                $record->refresh();
-                            }
-                        })
+                    // Tables\Actions\Action::make('مرفوض')
+                    //     ->label(function (Reservation $record) {
+                    //         if ($record->status == ' مقبول ') {
+                    //             return 'رفض';
+                    //         } elseif ($record->status == 'مرفوض') {
+                    //             return ' قبول ';
+                    //         } elseif ($record->status == 'قيد المعالجة') {
+                    //             return 'قيد المعالجة';
+                    //         }
+                    //     })
+                    //     ->color(function (Reservation $record) {
+                    //         if ($record->status == ' مقبول ') {
+                    //             return 'danger';
+                    //         } elseif ($record->status == 'مرفوض') {
+                    //             return 'success';
+                    //         } elseif ($record->status == 'قيد المعالجة') {
+                    //             return 'warning';
+                    //         }
+                    //     })
+                    //     ->icon(function (Reservation $record) {
+                    //         if ($record->status == ' مقبول ') {
+                    //             return 'heroicon-c-face-frown';
+                    //         } elseif ($record->status == 'مرفوض') {
+                    //             return 'heroicon-c-face-smile';
+                    //         } elseif ($record->status == 'قيد المعالجة') {
+                    //             return 'heroicon-c-arrow-path';
+                    //         }
+                    //     })
+                    //     ->requiresConfirmation(fn (Reservation $record) => $record->status == ' مقبول ')
+                    //     ->action(function (Reservation $record) {
+                    //         // $record->status =  !$record->status;
+                    //         // $record->save();
+                    //         $record->refresh();
+                    //         if ($record->status == ' مقبول ') {
+                    //             $record->status = 'مرفوض';
+                    //             $record->save();
+                    //             Notification::make('مرفوض')
+                    //                 ->title('تم رفض الحجز')
+                    //                 ->body("حجز يوم{$record->date} تم رفضه")
+                    //                 ->success()
+                    //                 ->send();
+                    //             $record->refresh();
+                    //         } elseif ($record->status == 'مرفوض') {
+                    //             $record->status = ' مقبول ';
+                    //             $record->save();
+                    //             Notification::make(' مقبول ')
+                    //                 ->title('تم قبول الحجز')
+                    //                 ->body("حجز يوم{$record->date} تم قبول")
+                    //                 ->success()
+                    //                 ->send();
+                    //             $record->refresh();
+                    //         } else {
+                    //             $record->status =  'قيد المعالجة';
+                    //             $record->save();
+                    //             Notification::make('قيد المعالجة')
+                    //                 ->title('قيد المعالجة')
+                    //                 ->body("حجز يوم{$record->date} يتم معالجة")
+                    //                 ->success()
+                    //                 ->send();
+                    //             $record->refresh();
+                    //         }
+                    //     }),
 
-                    //         Tables\Actions\Action::make('رفض')
-                    //             ->label('رفض')
-                    //             ->color('danger')
-                    //             ->icon('heroicon-c-face-frown')
-                    //             ->requiresConfirmation()
-                    //             ->action(function (Reservation $record) {
-                    //                 $record->status = 'مرفوض';
-                    //                 $record->save();
-                    //                 Notification::make('رفض')
-                    //                     ->title('تم رفض الحجز')
-                    //                     ->body("حجز يوم{$record->date} تم رفضه")
-                    //                     ->success()
-                    //                     ->send();
-                    //             }),
-                    //         Tables\Actions\Action::make('قبول')
-                    //             ->label('قبول')
-                    //             ->color('success')
-                    //             ->icon('heroicon-c-face-smile')
-                    //             ->requiresConfirmation()
-                    //             ->action(function (Reservation $record) {
-                    //                 $record->status = 'مقبول';
-                    //                 $record->save();
-                    //                 Notification::make('قبول')
-                    //                     ->title('تم قبول الحجز')
-                    //                     ->body("حجز يوم{$record->date} تم قبوله")
-                    //                     ->success()
-                    //                     ->send();
-                    //             }), Tables\Actions\Action::make('قيد المعالجة')
+                    Tables\Actions\Action::make('رفض')
+                        ->label('رفض')
+                        ->color('danger')
+                        ->icon('heroicon-c-face-frown')
+                        ->requiresConfirmation()
+                        ->hidden(fn (Reservation $record) => $record->status !== 'قيد المعالجة')
+                        ->action(function (Reservation $record) {
+                            $record->status = 'مرفوض';
+                            $record->save();
+                            Notification::make('رفض')
+                                ->title('تم رفض الحجز')
+                                ->body("حجز يوم{$record->date} تم رفضه")
+                                ->success()
+                                ->send();
+                        }),
+                    Tables\Actions\Action::make('قبول')
+                        ->label('قبول')
+                        ->color('success')
+                        ->icon('heroicon-c-face-smile')
+                        ->requiresConfirmation()
+                        ->hidden(fn (Reservation $record) => $record->status !== 'قيد المعالجة')
+                        ->action(function (Reservation $record) {
+                            $record->status = ' مقبول';
+                            $record->save();
+                            Notification::make('قبول')
+                                ->title('تم قبول الحجز')
+                                ->body("حجز يوم{$record->date} تم قبوله")
+                                ->success()
+                                ->send();
+                        }),
+                    // Tables\Actions\Action::make('قيد المعالجة')
                     //             ->label('قيد المعالجة')
                     //             ->color('warning')
                     //             ->icon('heroicon-c-arrow-path')

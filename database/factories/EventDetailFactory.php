@@ -21,10 +21,10 @@ class EventDetailFactory extends Factory
             'name' => fake()->name(),
             'type' => fake()->name(),
             'options' => json_encode([
-                ['url' => fake()->imageUrl()],
-                ['url' => fake()->imageUrl()],
-                ['url' => fake()->imageUrl()],
-                ['url' => fake()->imageUrl()],
+                fake()->imageUrl(),
+                fake()->imageUrl(),
+                fake()->imageUrl(),
+                fake()->imageUrl(),
 
             ]),
             'is_required' => fake()->boolean(),
