@@ -35,9 +35,9 @@ class PhotographerSeeder extends Seeder
             مع توافر جميع الإكسسوارات',
                 'numOfhours' => 3,
                 'images' => json_encode([
-                    'url' => 'Ellipse 6.png',
-                    'url' => 'Ellipse 6.png',
-                    'url' => 'Ellipse 6.png',
+                    'Ellipse 6.png',
+                    'Ellipse 6.png',
+                    'Ellipse 6.png',
                 ]),
             ),
             array(
@@ -46,9 +46,9 @@ class PhotographerSeeder extends Seeder
             بالإضافة إلى تصوير حديثي الولادة',
                 'numOfhours' => 3,
                 'images' => json_encode([
-                    'url' => 'Ellipse 6-2.png',
-                    'url' => 'Ellipse 6-2.png',
-                    'url' => 'Ellipse 6-2.png',
+                    'Ellipse 6-2.png',
+                    'Ellipse 6-2.png',
+                    'Ellipse 6-2.png',
                 ]),
             ),
             array(
@@ -59,9 +59,9 @@ class PhotographerSeeder extends Seeder
             بالإضافة إلى تصوير حديثي الولادة',
                 'numOfhours' => 3,
                 'images' => json_encode([
-                    'url' => 'Ellipse 6-1.png',
-                    'url' => 'Ellipse 6-1.png',
-                    'url' => 'Ellipse 6-1.png',
+                    'Ellipse 6-1.png',
+                    'Ellipse 6-1.png',
+                    'Ellipse 6-1.png',
                 ]),
             ),
             array(
@@ -71,9 +71,9 @@ class PhotographerSeeder extends Seeder
             بالإضافة إلى تصوير حديثي الولادة',
                 'numOfhours' => 3,
                 'images' => json_encode([
-                    'url' => 'Ellipse 6-3.png',
-                    'url' => 'Ellipse 6-3.png',
-                    'url' => 'Ellipse 6-3.png',
+                    'Ellipse 6-3.png',
+                    'Ellipse 6-3.png',
+                    'Ellipse 6-3.png',
                 ]),
             ),
         );

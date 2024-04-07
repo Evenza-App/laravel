@@ -53,7 +53,6 @@ class PhotographerResource extends Resource
                     //->required()
                     ->multiple()
                     ->imageEditor()
-                    ->directory('images')
                 //->columnSpanFull(),
             ])->columns(2);
     }
