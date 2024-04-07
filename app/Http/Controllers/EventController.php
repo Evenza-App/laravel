@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\EventResource;
+use App\Http\Resources\ShowEventResource;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,9 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        $event->load('details');
+
+        return ShowEventResource::make($event);
     }
 
     /**

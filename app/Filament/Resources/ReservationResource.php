@@ -63,11 +63,11 @@ class ReservationResource extends Resource
                 // Forms\Components\Select::make('user_id')
                 //     ->relationship('user', 'id')
                 //     ->required(),
-                Fieldset::make('User')
+                Fieldset::make('المستخدم')
                     ->relationship('user')
                     ->schema([
                         Forms\Components\TextInput::make('email')
-                            ->label('Email')
+                            //->label('Email')
                             ->hiddenOn('edit')
                             ->required(),
 
@@ -113,7 +113,7 @@ class ReservationResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.email')
-                    ->label('Email')
+                    //->label('Email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

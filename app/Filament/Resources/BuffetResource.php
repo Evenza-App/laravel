@@ -91,7 +91,7 @@ class BuffetResource extends Resource
                     ->relationship('category', 'name')
                     ->searchable()
                     ->preload()
-                    ->label('Filter by Catergory')
+                    ->label(' البحث بواسطة الصنف ')
                     ->indicator('Buffet Category'),
             ])
             ->actions([

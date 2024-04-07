@@ -5,6 +5,7 @@ use App\Http\Controllers\BuffetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventDetailController;
 use App\Http\Controllers\PhotographerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,5 @@ Route::apiResource('buffet', BuffetController::class);
 Route::apiResource('photographer', PhotographerController::class);
 
 Route::apiResource('events', EventController::class);
+
+Route::get('events/{event}', [EventController::class, 'show']);

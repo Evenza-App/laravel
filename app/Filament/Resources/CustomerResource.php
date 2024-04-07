@@ -19,6 +19,7 @@ use Filament\Forms\Components\Fieldset;
 class CustomerResource extends Resource
 {
     use HasTranslations;
+
     protected static ?string $model = Customer::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
@@ -35,8 +36,8 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Customer details')
-                    ->description(' the Customer inforamation details here.')
+                Forms\Components\Section::make(' معلومات الزبون')
+                    ->description('معلومات الزبون الشخصية هنا')
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->required()
@@ -56,15 +57,15 @@ class CustomerResource extends Resource
                         //     ->required(),
                     ])->columns(2),
 
-                Fieldset::make('User')
+                Fieldset::make('المستخدم')
                     ->relationship('user')
                     ->schema([
                         Forms\Components\TextInput::make('email')
-                            ->label('Email')
+                            //->label('Email')
                             ->hiddenOn('edit')
                             ->required(),
                         Forms\Components\TextInput::make('password')
-                            ->label('Password')
+                            // ->label('Password')
                             ->hiddenOn('edit')
                             ->password()
                             ->required(),

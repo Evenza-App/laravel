@@ -18,7 +18,7 @@ class Event extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function eventdetails(): HasMany
+    public function details(): HasMany
     {
         return $this->hasMany(EventDetail::class);
     }

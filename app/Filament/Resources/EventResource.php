@@ -46,6 +46,30 @@ class EventResource extends Resource
                     ->image()
                     ->imageEditor()
                     ->required(),
+                Forms\Components\Repeater::make('details')
+                    ->relationship('details')
+                    ->minItems(1)
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                        Forms\Components\Select::make('type')
+                            ->options([
+                                'string' => 'String',
+                                'number' => 'Number',
+                                'select' => 'Select',
+                            ])
+                            ->live()
+                            ->required(),
+                        Forms\Components\Toggle::make('is_required')
+                            ->required(),
+                        Forms\Components\Repeater::make('options')
+                            ->hidden(fn (Forms\Get $get) => $get('type') != 'select')
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->required(),
+                            ]),
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 
