@@ -14,7 +14,7 @@ class Reservation extends Model
     use HasFactory;
     use HasImage;
 
-    protected $fillable = ['date', 'time', 'location', 'numberOfPeople', 'image', 'status', 'event_id', 'photographer_id', 'user_id'];
+    protected $fillable = ['date', 'start_time', 'end_time', 'location', 'number_of_people', 'status', 'event_id', 'photographer_id', 'user_id'];
 
 
 

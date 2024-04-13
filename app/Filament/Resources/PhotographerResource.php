@@ -37,23 +37,28 @@ class PhotographerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->required(),
-                Forms\Components\Textarea::make('bio')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('numOfhours')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\FileUpload::make('images')
-                    //->required()
-                    ->multiple()
-                    ->imageEditor()
-                //->columnSpanFull(),
+
+                Forms\Components\Section::make(' معلومات المصور')
+                    // ->description('معلومات الحجز المدخلة من قبل الزبون هنا')
+                    ->schema([
+                        Forms\Components\FileUpload::make('image')
+                            ->image()
+                            ->required(),
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\MarkdownEditor::make('bio')
+                            ->required()
+                            ->columnSpanFull(),
+                        // Forms\Components\TextInput::make('numOfhours')
+                        //     ->required()
+                        //     ->numeric(),
+                        Forms\Components\FileUpload::make('images')
+                            //->required()
+                            ->multiple()
+                            ->imageEditor()
+                            ->columnSpanFull(),
+                    ])
             ])->columns(2);
     }
 
@@ -61,13 +66,13 @@ class PhotographerResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('bio'),
-                Tables\Columns\TextColumn::make('numOfhours')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('numOfhours')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('images'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -78,6 +83,43 @@ class PhotographerResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+
+
+
+
+
+
+
+            // ->columns([
+            //     Tables\Columns\Layout\Split::make([
+            //         Tables\Columns\Layout\Stack::make([
+            //             Tables\Columns\TextColumn::make('name')
+            //                 ->searchable()
+            //                 ->sortable()
+            //                 ->weight('medium')
+            //                 ->alignLeft(),
+
+            //             Tables\Columns\TextColumn::make('email')
+            //                 ->label('Email address')
+            //                 ->searchable()
+            //                 ->sortable()
+            //                 ->color('gray')
+            //                 ->alignLeft(),
+            //         ])->space(),
+
+            //         Tables\Columns\Layout\Stack::make([
+            //             Tables\Columns\TextColumn::make('github_handle')
+            //                 ->icon('icon-github')
+            //                 ->label('GitHub')
+            //                 ->alignLeft(),
+
+            //             Tables\Columns\TextColumn::make('twitter_handle')
+            //                 ->icon('icon-twitter')
+            //                 ->label('Twitter')
+            //                 ->alignLeft(),
+            //         ])->space(2),
+            //     ])->from('md'),
+            // ])
             ->filters([
                 //
             ])

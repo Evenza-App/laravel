@@ -38,37 +38,56 @@ class ReservationResource extends Resource
         return static::getModel()::count();
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->id != 1;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\DatePicker::make('date')
-                    ->required(),
-                Forms\Components\TextInput::make('time')
-                    ->required(),
-                Forms\Components\Textarea::make('location')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('numberOfPeople')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->required(),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    // ->badge()
-                    ->maxLength(255),
-                Forms\Components\Select::make('event_id')
-                    ->relationship('event', 'name')
-                    ->required(),
-                Forms\Components\Select::make('photographer_id')
-                    ->relationship('photographer', 'name')
-                    ->required(),
+                Forms\Components\Section::make(' معلومات الحجز')
+                    ->description('معلومات الحجز المدخلة من قبل الزبون هنا')
+                    ->schema([
+
+                        Forms\Components\TextInput::make('start_time')
+                            ->required(),
+                        Forms\Components\TextInput::make('end_time')
+                            ->required(),
+                        // Forms\Components\FileUpload::make('image')
+                        //     ->image()
+                        //     ->required(),
+                        Forms\Components\DatePicker::make('date')
+                            ->required(),
+                        Forms\Components\Textarea::make('location')
+                            ->required(),
+                        //->columnSpanFull(),
+                        Forms\Components\TextInput::make('number_of_people')
+                            ->required()
+                            ->numeric(),
+                    ])->columns(2),
+                Forms\Components\Section::make(' تفاصيل الحجز')
+                    //->description('معلومات الحجز المدخلة من قبل الزبون هنا')
+                    ->schema([
+
+
+                        Forms\Components\TextInput::make('status')
+                            ->required()
+                            // ->badge()
+                            ->maxLength(255),
+                        Forms\Components\Select::make('event_id')
+                            ->relationship('event', 'name')
+                            ->required(),
+                        Forms\Components\Select::make('photographer_id')
+                            ->relationship('photographer', 'name')
+                            ->required(),
+
+                    ])->columns(2),
                 // Forms\Components\Select::make('user_id')
                 //     ->relationship('user', 'id')
                 //     ->required(),
-                Fieldset::make('المستخدم')
+                Fieldset::make('حساب الزبون')
                     ->relationship('user')
                     ->schema([
                         Forms\Components\TextInput::make('email')
@@ -87,18 +106,21 @@ class ReservationResource extends Resource
                 Tables\Columns\TextColumn::make('date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('time'),
+                Tables\Columns\TextColumn::make('start_time')
+                    ->time(),
+                Tables\Columns\TextColumn::make('end_time')
+                    ->time(),
                 Tables\Columns\TextColumn::make('location'),
-                Tables\Columns\TextColumn::make('numberOfPeople')
+                Tables\Columns\TextColumn::make('number_of_people')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('image'),
+                // Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     //->getStateUsing(fn (Reservation $record): string => $record->status?->'مقبول' ? 'مرفوض' : 'مقبول')
                     ->getStateUsing(function (Reservation $record) {
-                        if ($record->status == ' مقبول') {
-                            return ' مقبول';
+                        if ($record->status == 'مقبول') {
+                            return 'مقبول';
                         } elseif ($record->status == 'مرفوض') {
                             return 'مرفوض';
                         } elseif ($record->status == 'قيد المعالجة') {
@@ -106,7 +128,7 @@ class ReservationResource extends Resource
                         }
                     })
                     ->colors([
-                        'success' => ' مقبول',
+                        'success' => 'مقبول',
                         'danger' => 'مرفوض',
                         'warning' => 'قيد المعالجة',
                     ])
@@ -221,7 +243,7 @@ class ReservationResource extends Resource
                         ->requiresConfirmation()
                         ->hidden(fn (Reservation $record) => $record->status !== 'قيد المعالجة')
                         ->action(function (Reservation $record) {
-                            $record->status = ' مقبول';
+                            $record->status = 'مقبول';
                             $record->save();
                             Notification::make('قبول')
                                 ->title('تم قبول الحجز')

@@ -24,12 +24,13 @@ class ListReservations extends ListRecords
     {
         return [
             'الكل' => Tab::make(),
+            // ->badge(Reservation::query()->where('status', 'الكل')->count()),
             'قيد المعالجة' => Tab::make()
                 ->badge(Reservation::query()->where('status', 'قيد المعالجة')->count())
                 ->query(fn ($query) => $query->where('status', 'قيد المعالجة')),
-            ' مقبول' => Tab::make()
-                ->badge(Reservation::query()->where('status', ' مقبول')->count())
-                ->query(fn ($query) => $query->where('status', ' مقبول')),
+            'مقبول' => Tab::make()
+                ->badge(Reservation::query()->where('status', 'مقبول')->count())
+                ->query(fn ($query) => $query->where('status', 'مقبول')),
             'مرفوض' => Tab::make()
                 ->badge(Reservation::query()->where('status', 'مرفوض')->count())
                 ->query(fn ($query) => $query->where('status', 'مرفوض')),

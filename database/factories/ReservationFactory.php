@@ -21,7 +21,8 @@ class ReservationFactory extends Factory
     {
         return [
             'date' => fake()->date($format = 'Y-m-d', $max = 'now'),
-            'time' => fake()->time($format = 'H:i:s', $max = 'now'),
+            'startTime' => fake()->time($format = 'H:i:s', $max = 'now'),
+            'endTime' => fake()->time($format = 'H:i:s', $max = 'now'),
             'location' => fake()->address(),
             'numberOfPeople' => fake()->numberBetween($min = 0, $max = 60),
             'image' => fake()->imageUrl(),

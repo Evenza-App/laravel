@@ -14,6 +14,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Infolists\Components\Fieldset;
+use Filament\Forms\Components\MarkdownEditor;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -70,6 +71,10 @@ class AppServiceProvider extends ServiceProvider
                 ->label(__($textColumn->getName()));
         });
         Toggle::configureUsing(function (Toggle $textColumn) {
+            $textColumn
+                ->label(__($textColumn->getName()));
+        });
+        MarkdownEditor::configureUsing(function (MarkdownEditor $textColumn) {
             $textColumn
                 ->label(__($textColumn->getName()));
         });

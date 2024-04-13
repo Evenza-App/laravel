@@ -17,11 +17,12 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->time('time');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->text('location');
-            $table->integer('numberOfPeople');
-            $table->string('image');
-            $table->string('status');
+            $table->integer('number_of_people');
+            //  $table->string('image');
+            $table->string('status')->default('قيد المعالجة');
             $table->foreignIdFor(Event::class)
                 ->constrained()
                 ->cascadeOnDelete()

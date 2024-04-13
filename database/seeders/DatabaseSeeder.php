@@ -16,18 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'email' => 'test@example.com',
-        ]);
         $this->call([
             AdminSeeder::class,
             CustomerSeeder::class,
             CategorySeeder::class,
             EventSeeder::class,
-            EventDetailSeeder::class,
+            // EventDetailSeeder::class,
             BuffetSeeder::class,
             PhotographerSeeder::class,
             ReservationSeeder::class,
         ]);
+        $this->call(EventDetailsTableSeeder::class);
     }
 }

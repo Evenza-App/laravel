@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->text('bio');
-            $table->integer('numOfhours');
+            // $table->integer('numOfhours');
             $table->json('images')->default('[]');
             $table->timestamps();
         });

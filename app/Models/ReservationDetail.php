@@ -11,7 +11,7 @@ class ReservationDetail extends Model
     use HasFactory;
 
 
-    protected $fillable = ['type', 'event_detail_id', 'reservation_id'];
+    protected $fillable = ['value', 'event_detail_id', 'reservation_id'];
 
 
     /**

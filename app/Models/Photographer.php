@@ -13,7 +13,7 @@ class Photographer extends Model
     use HasFactory;
     use HasImage;
 
-    protected $fillable = ['name', 'image', 'bio', 'numOfhours', 'images'];
+    protected $fillable = ['name', 'image', 'bio', 'images'];
 
     public function images(): Attribute
     {

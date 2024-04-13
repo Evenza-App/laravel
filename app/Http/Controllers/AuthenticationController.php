@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
+
 
 class AuthenticationController extends Controller
 {
@@ -44,4 +46,35 @@ class AuthenticationController extends Controller
             'token' => $token
         ]);
     }
+
+
+    public function logout(LoginRequest $request)
+    {
+        // $request->user()->token()->revoke();
+        // return response()->json([
+        //     'message' => 'Successfully logged out'
+        // ]);
+        if ($request->user()->tokens()->delete()) {
+            return response([
+                'message' => 'logout successfully',
+            ], status: 200);
+        } else {
+            return response([
+                'message' => 'error occurred , please try again',
+            ], status: 500);
+        }
+    }
+
+
+
+    // public function logoutApi()
+    // {
+    //     if (Auth::check()) {
+    //         Auth::user()->AauthAcessToken()->delete();
+    //     }
+
+    //     // $user = Auth::user()->token();
+    //     // $user->revoke();
+    //     // return 'logged out'; // modify as per your need
+    // }
 }

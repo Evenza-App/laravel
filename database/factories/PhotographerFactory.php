@@ -20,12 +20,12 @@ class PhotographerFactory extends Factory
             'name' => fake()->name(),
             'image' => fake()->imageUrl(),
             'bio' => fake()->text(),
-            'numOfhours' => fake()->numberBetween(3, 6),
+            // 'numOfhours' => fake()->numberBetween(3, 6),
             'images' => json_encode([
-                ['url' => fake()->imageUrl()],
-                ['url' => fake()->imageUrl()],
-                ['url' => fake()->imageUrl()],
-                ['url' => fake()->imageUrl()],
+                fake()->imageUrl(),
+                fake()->imageUrl(),
+                fake()->imageUrl(),
+                fake()->imageUrl(),
 
             ]),
         ];

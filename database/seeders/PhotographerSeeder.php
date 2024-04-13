@@ -28,12 +28,13 @@ class PhotographerSeeder extends Seeder
         //         'url' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
         //     ]),
         // ]);
-        DB::table('photographers')->delete();
+        // DB::table('photographers')->delete();
+        Photographer::query()->delete();
         $photograohers = array(
             array(
                 'name' => 'ليليان وهبي', 'image' => 'Ellipse 6.png', 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات',
-                'numOfhours' => 3,
+                // 'numOfhours' => 3,
                 'images' => json_encode([
                     'Ellipse 6.png',
                     'Ellipse 6.png',
@@ -44,7 +45,7 @@ class PhotographerSeeder extends Seeder
                 'name' => 'سعيد مصلح', 'image' => 'Ellipse 6-2.png', 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات
             بالإضافة إلى تصوير حديثي الولادة',
-                'numOfhours' => 3,
+                // 'numOfhours' => 3,
                 'images' => json_encode([
                     'Ellipse 6-2.png',
                     'Ellipse 6-2.png',
@@ -57,7 +58,7 @@ class PhotographerSeeder extends Seeder
                 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات
             بالإضافة إلى تصوير حديثي الولادة',
-                'numOfhours' => 3,
+                // 'numOfhours' => 3,
                 'images' => json_encode([
                     'Ellipse 6-1.png',
                     'Ellipse 6-1.png',
@@ -69,7 +70,7 @@ class PhotographerSeeder extends Seeder
                 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات
             بالإضافة إلى تصوير حديثي الولادة',
-                'numOfhours' => 3,
+                // 'numOfhours' => 3,
                 'images' => json_encode([
                     'Ellipse 6-3.png',
                     'Ellipse 6-3.png',
@@ -77,6 +78,7 @@ class PhotographerSeeder extends Seeder
                 ]),
             ),
         );
-        DB::table('photographers')->insert($photograohers);
+        Photographer::insert($photograohers);
+        // DB::table('photographers')->insert($photograohers);
     }
 }

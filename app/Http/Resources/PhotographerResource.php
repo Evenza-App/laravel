@@ -21,7 +21,7 @@ class PhotographerResource extends JsonResource
             'name' => $this->name,
             'image' => $this->image,
             'bio' => $this->bio,
-            'numOfhours' => $this->numOfhours,
+            // 'numOfhours' => $this->numOfhours,
             'images' => $this->images,
 
 

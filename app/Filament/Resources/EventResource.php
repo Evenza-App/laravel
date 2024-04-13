@@ -34,19 +34,30 @@ class EventResource extends Resource
 
     protected static ?string $navigationGroup = 'System Management';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->id != 1;
+    }
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->imageEditor()
-                    ->required(),
+
+                Forms\Components\Section::make(' معلومات المناسبة')
+                    // ->description('معلومات الحجز المدخلة من قبل الزبون هنا')
+                    ->schema([
+                        Forms\Components\FileUpload::make('image')
+                            ->image()
+                            ->imageEditor()
+                            ->required(),
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                    ])->columns(2),
                 Forms\Components\Repeater::make('details')
+                    ->label(' التفاصيل الخاصة في ديكور المناسبة')
                     ->relationship('details')
                     ->minItems(1)
                     ->schema([
@@ -54,9 +65,9 @@ class EventResource extends Resource
                             ->required(),
                         Forms\Components\Select::make('type')
                             ->options([
-                                'string' => 'String',
-                                'number' => 'Number',
-                                'select' => 'Select',
+                                'string' => 'مربع نصي',
+                                'number' => 'رقم',
+                                'select' => 'قائمة منسدلة',
                             ])
                             ->live()
                             ->required(),
@@ -67,8 +78,9 @@ class EventResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->required(),
-                            ]),
+                            ])
                     ])
+                    // ->columns(2),
                     ->columnSpanFull(),
             ]);
     }
@@ -77,9 +89,9 @@ class EventResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

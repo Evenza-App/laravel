@@ -20,7 +20,7 @@ class EventSeeder extends Seeder
         //     'name' => 'عيد ميلاد',
         //     'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
         // ]);
-        DB::table('events')->delete();
+        Event::query()->delete();
         $events = array(
             array('name' => 'عيد ميلاد', 'image' => 'birthday.png'),
             array('name' => ' افتتاح ', 'image' => 'افتتاح.png'),
@@ -29,6 +29,6 @@ class EventSeeder extends Seeder
             array('name' => 'حفلة تحديد جنس المولود', 'image' => 'تحديد حنس المولود.png'),
             array('name' => 'حفلة تخرج', 'image' => 'تخرج.png'),
         );
-        DB::table('events')->insert($events);
+        Event::insert($events);
     }
 }

@@ -29,12 +29,14 @@ class CategorySeeder extends Seeder
         //     'image' => 'https://via.placeholder.com/640x480.png/00eedd?text=qui',
         // ]);
 
-        DB::table('categories')->delete();
+        // DB::table('categories')->delete();
+        Category::query()->delete();
         $categories = array(
             array('name' => "شرقي", 'image' => 'شرقي.png'),
             array('name' => "غربي", 'image' => 'غربي.png'),
             array('name' => "حلويات", 'image' => 'حلويات.png'),
         );
-        DB::table('categories')->insert($categories);
+        Category::insert($categories);
+        // DB::table('categories')->insert($categories);
     }
 }

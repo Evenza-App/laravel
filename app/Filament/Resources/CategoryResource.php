@@ -38,13 +38,17 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->imageEditor()
-                    ->required(),
+                Forms\Components\Section::make(' التصنيفات ')
+                    ->description(' معلومات تصنيفات البوفيهات التي لدينا ')
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\FileUpload::make('image')
+                            ->image()
+                            ->imageEditor()
+                            ->required(),
+                    ])->columns(2),
             ]);
     }
 

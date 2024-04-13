@@ -9,12 +9,13 @@ use App\Models\Customer;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Fieldset;
+use App\Traits\Filament\HasTranslations;
+use Filament\Support\Enums\IconPosition;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CustomerResource\RelationManagers;
-use App\Traits\Filament\HasTranslations;
-use Filament\Forms\Components\Fieldset;
 
 class CustomerResource extends Resource
 {
@@ -44,7 +45,8 @@ class CustomerResource extends Resource
                             //->type('color')
                             ->maxLength(255),
                         Forms\Components\DatePicker::make('birthDate')
-                            ->required(),
+                            ->required()
+                            ->maxDate('today'),
                         Forms\Components\TextInput::make('phone')
                             ->tel()
                             ->required()
@@ -57,7 +59,7 @@ class CustomerResource extends Resource
                         //     ->required(),
                     ])->columns(2),
 
-                Fieldset::make('المستخدم')
+                Fieldset::make('حساب الزبون')
                     ->relationship('user')
                     ->schema([
                         Forms\Components\TextInput::make('email')
@@ -70,38 +72,104 @@ class CustomerResource extends Resource
                             ->password()
                             ->required(),
                     ]),
-            ]);
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Placeholder::make('created_at')
+                            ->label('أنشئ بتاريخ ')
+                            ->content(fn (Customer $record): ?string => $record->created_at?->diffForHumans()),
+
+                        Forms\Components\Placeholder::make('updated_at')
+                            ->label('عدل بتاريخ')
+                            ->content(fn (Customer $record): ?string => $record->updated_at?->diffForHumans()),
+                    ])
+                    ->columnSpan(['lg' => 1])
+                    ->hidden(fn (?Customer $record) => $record === null),
+            ])
+            ->columns(2);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            // ->columns([
+            //     Tables\Columns\TextColumn::make('name')
+            //         // ->searchable(isIndividual: true),
+            //         ->searchable(),
+            //     Tables\Columns\TextColumn::make('birthDate')
+            //         ->date()
+            //         ->sortable(),
+            //     Tables\Columns\TextColumn::make('phone')
+            //         ->searchable(),
+            //     Tables\Columns\TextColumn::make('address'),
+            //     Tables\Columns\TextColumn::make('user.email')
+            //         ->searchable(),
+            //     Tables\Columns\TextColumn::make('user.password')
+            //         ->label('Password')
+            //         ->numeric()
+            //         ->sortable()
+            //         ->toggleable(isToggledHiddenByDefault: true),
+            //     Tables\Columns\TextColumn::make('created_at')
+            //         ->dateTime()
+            //         ->sortable()
+            //         ->toggleable(isToggledHiddenByDefault: true),
+            //     Tables\Columns\TextColumn::make('updated_at')
+            //         ->dateTime()
+            //         ->sortable()
+            //         ->toggleable(isToggledHiddenByDefault: true),
+            // ]) //->defaultSort('name' , 'desc')
+
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    // ->searchable(isIndividual: true),
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('birthDate')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address'),
-                Tables\Columns\TextColumn::make('user.email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user.password')
-                    ->label('Password')
-                    ->numeric()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ]) //->defaultSort('name' , 'desc')
+                Tables\Columns\Layout\Split::make([
+                    Tables\Columns\Layout\Stack::make([
+                        Tables\Columns\TextColumn::make('name')
+                            ->searchable()
+                            ->sortable()
+                            ->icon('heroicon-m-user')
+                            //  ->iconPosition(IconPosition::After)
+                            ->iconColor('primary')
+                            ->weight('medium')
+                            ->alignLeft(),
+
+                        Tables\Columns\TextColumn::make('user.email')
+                            ->label('البريد الإلكتروني ')
+                            ->icon('heroicon-m-envelope')
+                            //  ->iconPosition(IconPosition::After)
+                            ->iconColor('info')
+                            ->searchable()
+                            ->sortable()
+                            ->color('gray')
+                            ->alignLeft(),
+                    ])->space(),
+
+                    Tables\Columns\Layout\Stack::make([
+                        Tables\Columns\TextColumn::make('birthDate')
+                            ->icon('heroicon-m-calendar-days')
+                            // ->iconPosition(IconPosition::After)
+                            ->iconColor('warning')
+                            ->label('عيدالميلاد')
+                            ->date()
+                            ->alignLeft(),
+                    ])->space(3),
+
+                    Tables\Columns\Layout\Stack::make([
+                        Tables\Columns\TextColumn::make('phone')
+                            ->icon('heroicon-m-phone')
+                            // ->iconPosition(IconPosition::After)
+                            ->iconColor('success')
+                            ->label('الهاتف')
+                            ->alignLeft(),
+
+                        Tables\Columns\TextColumn::make('address')
+                            ->icon('heroicon-m-map-pin')
+                            // ->iconPosition(IconPosition::After)
+                            ->iconColor('danger')
+                            ->label('العنوان')
+                            ->alignLeft(),
+                    ])->space(3),
+
+
+                ])->from('md'),
+            ])
             ->filters([
                 //
             ])
