@@ -22,6 +22,7 @@ class ReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'image' => ['nullable', 'image'],
             'start_time' => ['required', 'string'],
             'end_time' => ['required', 'string'],
             'date' => ['required', 'date', 'After:' . now()->startOfYear()->subYears(10)->toDateString()],
@@ -33,9 +34,7 @@ class ReservationRequest extends FormRequest
             'buffet_ids.*' => ['integer', 'exists:buffets,id'],
             'details' => ['required', 'array'],
             'details.*.event_detail_id' => ['integer', 'exists:event_details,id'],
-            'details.*value' => ['required', 'string',]
-
-
+            'details.*.value' => ['required', 'string',]
         ];
     }
 }

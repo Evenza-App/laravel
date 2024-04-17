@@ -14,7 +14,9 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Infolists\Components\Fieldset;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Infolists\Components\RepeatableEntry;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -75,6 +77,15 @@ class AppServiceProvider extends ServiceProvider
                 ->label(__($textColumn->getName()));
         });
         MarkdownEditor::configureUsing(function (MarkdownEditor $textColumn) {
+            $textColumn
+                ->label(__($textColumn->getName()));
+        });
+
+        TextEntry::configureUsing(function (TextEntry $textColumn) {
+            $textColumn
+                ->label(__($textColumn->getName()));
+        });
+        RepeatableEntry::configureUsing(function (RepeatableEntry $textColumn) {
             $textColumn
                 ->label(__($textColumn->getName()));
         });

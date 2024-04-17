@@ -36,7 +36,8 @@ class EventResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->id != 1;
+        //return auth()->user()->id != 1;
+        return true;
     }
 
 
@@ -46,7 +47,7 @@ class EventResource extends Resource
             ->schema([
 
                 Forms\Components\Section::make(' معلومات المناسبة')
-                    // ->description('معلومات الحجز المدخلة من قبل الزبون هنا')
+                    // ->description('')
                     ->schema([
                         Forms\Components\FileUpload::make('image')
                             ->image()
@@ -54,7 +55,7 @@ class EventResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('name')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
                     ])->columns(2),
                 Forms\Components\Repeater::make('details')
                     ->label(' التفاصيل الخاصة في ديكور المناسبة')

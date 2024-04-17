@@ -20,6 +20,7 @@ class ReservationFactory extends Factory
     public function definition(): array
     {
         return [
+            'image' => fake()->imageUrl(),
             'date' => fake()->date($format = 'Y-m-d', $max = 'now'),
             'startTime' => fake()->time($format = 'H:i:s', $max = 'now'),
             'endTime' => fake()->time($format = 'H:i:s', $max = 'now'),

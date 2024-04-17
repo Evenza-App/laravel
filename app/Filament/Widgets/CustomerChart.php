@@ -31,6 +31,11 @@ class CustomerChart extends ChartWidget
         ];
     }
 
+    protected function getType(): string
+    {
+        return 'bar';
+    }
+
     // protected function getData(): array
     // {
     //     $data = $this->getCustomersPerMonth();
@@ -84,8 +89,5 @@ class CustomerChart extends ChartWidget
     //     ];
     // }
 
-    protected function getType(): string
-    {
-        return 'bar';
-    }
+
 }

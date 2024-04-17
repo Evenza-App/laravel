@@ -19,9 +19,9 @@ class EventDetailResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
-            'options' => $this->jsonOptions(),
+            'options' => $this->options,
             'is_required' => $this->is_required,
-            'event' => $this->event->name,
+            //'event' => $this->event->name,
         ]);
     }
 }

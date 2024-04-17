@@ -80,7 +80,7 @@ class BuffetResource extends Resource
                     ->searchable(),
                 //->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('price')
-                    ->money('SYR')
+                    ->formatStateUsing(fn ($state) => "{$state} ل.س ")
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -48,21 +48,19 @@ class AuthenticationController extends Controller
     }
 
 
-    public function logout(LoginRequest $request)
+    public function logout()
     {
+        Auth::user()->currentAccessToken()->delete();
+
+        return response([
+            'message' => 'logout successfully',
+        ], status: 200);
         // $request->user()->token()->revoke();
         // return response()->json([
         //     'message' => 'Successfully logged out'
         // ]);
-        if ($request->user()->tokens()->delete()) {
-            return response([
-                'message' => 'logout successfully',
-            ], status: 200);
-        } else {
-            return response([
-                'message' => 'error occurred , please try again',
-            ], status: 500);
-        }
+
+
     }
 
 

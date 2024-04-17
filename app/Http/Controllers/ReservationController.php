@@ -35,16 +35,15 @@ class ReservationController extends Controller
 
 
         $data = $request->validated() + ['user_id' => auth()->id()];
-        // $file = $request->file('image');
-        // $data['image'] = Str::random() . ".{$file->extension()}";
-        // $file->storeAs('public', $data['image']);
+        $file = $request->file('image');
+        $data['image'] = Str::random() . ".{$file->extension()}";
+        $file->storeAs('public', $data['image']);
         $reservation = Reservation::create($data);
         $reservation->buffets()->attach($request->buffet_ids);
         foreach ($request->details as $detail) {
             $reservation->details()->create($detail);
-            # code...
         }
-        //TODO:: add notification
+
         Notification::make('reservation_created')
             ->title('حجز جديد')
             ->body('لدينا حجز جديد الرجاء الاطلاع ')

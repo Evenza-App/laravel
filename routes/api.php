@@ -16,7 +16,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('/customers', [CustomerController::class, 'index']);
+Route::apiResource('customer', CustomerController::class)->except('update');
+
+Route::get('customer/{customer}', [CustomerController::class, 'show']);
+
+Route::post('customer/{customer}', [CustomerController::class, 'update']);
 
 Route::post('login', [AuthenticationController::class, 'login']);
 

@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             // EventDetailSeeder::class,
             BuffetSeeder::class,
             PhotographerSeeder::class,
-            ReservationSeeder::class,
+            //  ReservationSeeder::class,
         ]);
         $this->call(EventDetailsTableSeeder::class);
     }

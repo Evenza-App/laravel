@@ -2,20 +2,25 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Models\Reservation;
+use Filament\Infolists\Infolist;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Fieldset;
+use App\Traits\Filament\HasTranslations;
+use Filament\Notifications\Notification;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\RepeatableEntry;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ReservationResource\Pages;
 use App\Filament\Resources\ReservationResource\RelationManagers;
-use App\Models\Reservation;
-use App\Traits\Filament\HasTranslations;
-use Filament\Forms;
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Form;
-use Filament\Notifications\Notification;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\Section;
 
 class ReservationResource extends Resource
 {
@@ -40,7 +45,7 @@ class ReservationResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->id != 1;
+        return true;
     }
 
     public static function form(Form $form): Form
@@ -50,14 +55,13 @@ class ReservationResource extends Resource
                 Forms\Components\Section::make(' معلومات الحجز')
                     ->description('معلومات الحجز المدخلة من قبل الزبون هنا')
                     ->schema([
-
                         Forms\Components\TextInput::make('start_time')
                             ->required(),
                         Forms\Components\TextInput::make('end_time')
                             ->required(),
-                        // Forms\Components\FileUpload::make('image')
-                        //     ->image()
-                        //     ->required(),
+                        Forms\Components\FileUpload::make('image')
+                            ->image()
+                            ->required(),
                         Forms\Components\DatePicker::make('date')
                             ->required(),
                         Forms\Components\Textarea::make('location')
@@ -67,6 +71,26 @@ class ReservationResource extends Resource
                             ->required()
                             ->numeric(),
                     ])->columns(2),
+                Forms\Components\Repeater::make('buffets')
+                    ->relationship('buffets')
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                    ])
+
+                    ->columns(2),
+                // Forms\Components\Repeater::make('decoration answer')
+                //     ->relationship('details')
+                //     ->schema([
+                //         Forms\Components\Repeater::make('eventdetail ')
+                //             ->relationship('eventdetail'),
+
+                //         Forms\Components\TextInput::make('value')
+                //             ->required(),
+                //     ])
+
+                //     ->columns(2),
+
                 Forms\Components\Section::make(' تفاصيل الحجز')
                     //->description('معلومات الحجز المدخلة من قبل الزبون هنا')
                     ->schema([
@@ -99,10 +123,63 @@ class ReservationResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+
+                Section::make('الصورة')
+                    // ->description(' حساب الزبون ')
+                    ->schema([
+                        ImageEntry::make('image'),
+                    ]),
+                Section::make('حساب الزبون')
+                    // ->description(' حساب الزبون ')
+                    ->schema([
+                        TextEntry::make('user.email'),
+                    ]),
+                Section::make(' المناسبة  ')
+                    ->description(' المناسبة التي قام الزبون باختيارها ')
+                    ->schema([
+                        TextEntry::make('event.name'),
+                    ]),
+                Section::make(' معلومات الحجز')
+                    ->schema([
+                        TextEntry::make('start_time'),
+                        TextEntry::make('end_time'),
+                        TextEntry::make('date'),
+                        TextEntry::make('location'),
+                        TextEntry::make('number_of_people'),
+                    ])->columns(2),
+                Section::make(' المصور ')
+                    ->description(' المصور التي قام الزبون باختياره ')
+                    ->schema([
+                        TextEntry::make('photographer.name'),
+                    ])->columns(2),
+                Section::make(' البوفيهات ')
+                    ->description(' البوفيهات التي قام الزبون باختيارها ')
+                    ->schema([
+                        RepeatableEntry::make('Buffets')
+                            ->schema([
+                                TextEntry::make('name')->label('اسم البوفيه'),
+                            ])->columns(2),
+                    ]),
+                Section::make(' معلومات الديكور     ')
+                    ->description(' المعلومات التي قام الزبون ب تعبئتها ')
+                    ->schema([
+                        RepeatableEntry::make('details')
+                            ->schema([
+                                TextEntry::make('name')->label('السؤال'),
+                                TextEntry::make('value')->label('الجواب'),
+                            ])->columns(2),
+                    ]),
+            ]);
+    }
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('date')
                     ->date()
                     ->sortable(),
@@ -114,7 +191,6 @@ class ReservationResource extends Resource
                 Tables\Columns\TextColumn::make('number_of_people')
                     ->numeric()
                     ->sortable(),
-                // Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     //->getStateUsing(fn (Reservation $record): string => $record->status?->'مقبول' ? 'مرفوض' : 'مقبول')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EventDetailResource;
 use App\Http\Resources\EventResource;
 use App\Http\Resources\ShowEventResource;
 use App\Models\Event;
@@ -33,6 +34,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         $event->load('details');
+        //return new EventDetailResource($event->details());
 
         return ShowEventResource::make($event);
     }
