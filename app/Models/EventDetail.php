@@ -18,7 +18,10 @@ class EventDetail extends Model
 
     protected $casts = [
         'options' => 'array',
+        'is_required' => 'boolean',
     ];
+
+
 
 
     /**

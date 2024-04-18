@@ -55,7 +55,7 @@ class BuffetResource extends Resource
                         Forms\Components\TextInput::make('price')
                             ->required()
                             ->numeric()
-                            ->prefix('SYR'),
+                            ->prefix('ل.س'),
                         Forms\Components\Select::make('category_id')
                             ->relationship('category', 'name')
                             ->required(),

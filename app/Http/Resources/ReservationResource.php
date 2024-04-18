@@ -19,10 +19,10 @@ class ReservationResource extends JsonResource
             'id' => $this->id,
             'image' => $this->image,
             'status' => $this->status,
-            'startTime' => $this->startTime,
-            'endTime' => $this->endTime,
+            'start_time' => $this->start_time,
+            'end_time' => $this->end_time,
             'date' => $this->date,
-            'numberOfPeople' => $this->numberOfPeople,
+            'number_of_people' => $this->number_of_people,
             'event' => $this->event->name,
             'photographer' => $this->photographer->name,
             'user' => $this->user->email

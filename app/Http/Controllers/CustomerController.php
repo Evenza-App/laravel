@@ -51,8 +51,8 @@ class CustomerController extends Controller
      */
     public function update(UpdateRequest $request, Customer $customer)
     {
-        $data = $request->validated() + ['user_id' => auth()->id()];
-        //$data = $request->validated();
+        //$data = $request->validated() + ['user_id' => auth()->id()];
+        $data = $request->validated();
         $customer->update($data);
         return $customer;
     }

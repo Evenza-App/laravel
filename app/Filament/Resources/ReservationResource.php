@@ -11,16 +11,20 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Fieldset;
 use App\Traits\Filament\HasTranslations;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Wizard\Step;
+use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\RepeatableEntry;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ReservationResource\Pages;
 use App\Filament\Resources\ReservationResource\RelationManagers;
-use Filament\Infolists\Components\ImageEntry;
-use Filament\Infolists\Components\Section;
+use App\Models\AdminMessage;
+use App\Models\Payment;
 
 class ReservationResource extends Resource
 {
@@ -47,6 +51,7 @@ class ReservationResource extends Resource
     {
         return true;
     }
+
 
     public static function form(Form $form): Form
     {
@@ -317,16 +322,56 @@ class ReservationResource extends Resource
                         ->color('success')
                         ->icon('heroicon-c-face-smile')
                         ->requiresConfirmation()
+                        ->modalHeading(' التكلفة')
+                        ->modalDescription('تكلفة هذا الحجز')
+                        // ->modalContent(view(''))
+                        //->modalSubmitAction()
+                        ->modalSubmitActionLabel('إرسال ')
+                        ->form([
+                            TextInput::make('total_price')
+                                ->numeric()
+                                ->prefix('ل.س'),
+                            TextInput::make('message '),
+                        ])
+                        ->action(function (array $data, Payment $record): void {
+                            $record->total_price = $data['total_price'];
+                            $record->message = $data['message'];
+                            $record->save();
+
+                            // $record->Payment()->associate($data['total_price']);
+                            // $record->Payment()->associate($data['message']);
+
+                            // $this->record->modal_value = $data['modal_value'];
+
+                        })
+
+
+                        // ->action(function (Payment $record) {
+                        //     $record->total_price = total_price;
+                        //     $record->message = 'message';
+                        //     $record->save();
+                        // })
+
+
+                        // ->action(function (Payment $record): void {
+                        //     $record->total_price->associate($record['التكلفة']);
+                        //     $record->message->associate($record['ملاحظة']);
+                        //     $record->save();
+                        //     //$record->sendToDatabase(Payment::class);
+                        // })
+
                         ->hidden(fn (Reservation $record) => $record->status !== 'قيد المعالجة')
+                        ->action(fn ($records) => $records->each->delete())
                         ->action(function (Reservation $record) {
                             $record->status = 'مقبول';
                             $record->save();
                             Notification::make('قبول')
                                 ->title('تم قبول الحجز')
                                 ->body("حجز يوم{$record->date} تم قبوله")
+                                //->body(" تم قبول حجز {$record->date}الرجاء الدفع ")
                                 ->success()
                                 ->send();
-                        }),
+                        })
                     // Tables\Actions\Action::make('قيد المعالجة')
                     //             ->label('قيد المعالجة')
                     //             ->color('warning')
