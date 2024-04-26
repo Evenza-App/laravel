@@ -35,10 +35,17 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
                 'info' => Color::Blue,
+                'pink' => '#E99FB6',
+                'blue' => '#A18EFF',
+                'orange' => '#FFB183',
+                'purple' => '#E99FB6',
                 //'primary' => '#E99FB6',
+                'date' => '#FFB183',
+                'yellow' => '#ffee32',
                 'primary' => '#AF75B2',
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
+                'green' => '#38B82D',
             ])
             ->font('Roboto Mono')
             //->font('Tauri')

@@ -81,6 +81,8 @@ class BuffetResource extends Resource
                 //->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('price')
                     ->formatStateUsing(fn ($state) => "{$state} ل.س ")
+                    ->icon('heroicon-m-banknotes')
+                    ->iconColor('success')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

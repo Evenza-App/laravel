@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\Models\HasImage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -66,5 +67,15 @@ class Reservation extends Model
     public function details(): HasMany
     {
         return $this->hasMany(ReservationDetail::class);
+    }
+
+    /**
+     * Get the user associated with the Reservation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function payment(): HasOne
+    {
+        return $this->hasOne(Payment::class);
     }
 }

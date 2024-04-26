@@ -20,20 +20,26 @@ class CustomerSeeder extends Seeder
             'email' => 'aya@gmail.com',
 
         ]);
-        $aya->customer()->create(array('name' => "aya", 'phone' => '0996754375', 'address' => 'سوريا,دمشق', 'birthDate' => '2012-02-22'));
+        $aya->customer()->create(array(
+            'name' => "aya", 'phone' => '0996754375', 'address' => 'سوريا,دمشق', //'birthDate' => '2012-02-22'
+        ));
 
 
         $nour = User::factory()->create([
             'email' => 'nour@gmail.com',
 
         ]);
-        $nour->customer()->create(array('name' => "nour", 'phone' => '0996754375', 'address' => 'سوريا,دمشق', 'birthDate' => '2012-02-22'));
+        $nour->customer()->create(array(
+            'name' => "nour", 'phone' => '0996754375', 'address' => 'سوريا,دمشق', //'birthDate' => '2012-02-22'
+        ));
 
 
         $zeina = User::factory()->create([
             'email' => 'zeinaa@gmail.com',
 
         ]);
-        $zeina->customer()->create(array('name' => "zeinaa", 'phone' => '0996754375', 'address' => 'سوريا,دمشق', 'birthDate' => '2012-02-22'));
+        $zeina->customer()->create(array(
+            'name' => "zeinaa", 'phone' => '0996754375', 'address' => 'سوريا,دمشق', //'birthDate' => '2012-02-22'
+        ));
     }
 }

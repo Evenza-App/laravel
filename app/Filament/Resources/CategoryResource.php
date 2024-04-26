@@ -58,8 +58,12 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
+                    ->icon('heroicon-o-chart-pie')
+                    ->iconColor('warning')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('buffets_count')->counts('buffets'),
+                Tables\Columns\TextColumn::make('buffets_count')->counts('buffets')
+                    ->icon('heroicon-o-squares-plus')
+                    ->iconColor('success'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

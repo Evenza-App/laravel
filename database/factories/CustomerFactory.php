@@ -21,7 +21,7 @@ class CustomerFactory extends Factory
             'name' => fake()->name(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
-            'birthDate' => fake()->date($format = 'Y-m-d', $max = 'now'),
+            //'birthDate' => fake()->date($format = 'Y-m-d', $max = 'now'),
             'user_id' => User::inRandomOrder()->first()->id,
         ];
     }

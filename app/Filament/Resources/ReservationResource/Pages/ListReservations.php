@@ -34,6 +34,9 @@ class ListReservations extends ListRecords
             'مرفوض' => Tab::make()
                 ->badge(Reservation::query()->where('status', 'مرفوض')->count())
                 ->query(fn ($query) => $query->where('status', 'مرفوض')),
+            'بحالة الدفع' => Tab::make()
+                ->badge(Reservation::query()->where('status', 'بحالة الدفع')->count())
+                ->query(fn ($query) => $query->where('status', 'بحالة الدفع')),
         ];
     }
 }

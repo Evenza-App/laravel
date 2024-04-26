@@ -19,11 +19,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::apiResource('customer', CustomerController::class)->except('update');
+Route::apiResource('customer', CustomerController::class);
 
-Route::get('customer/{customer}', [CustomerController::class, 'show']);
+// Route::get('customer/{customer}', [CustomerController::class, 'show']);
 
-Route::post('customer/{customer}', [CustomerController::class, 'update']);
+Route::Put('customer/{customer}', [CustomerController::class, 'update']);
 
 Route::post('login', [AuthenticationController::class, 'login']);
 
@@ -46,6 +46,7 @@ Route::apiResource('reservations', ReservationController::class)
     ->middleware('auth:sanctum');
 
 Route::apiResource('home', HomeController::class);
+
 Route::apiResource('myevents', MyEventController::class)
     ->middleware('auth:sanctum');
 

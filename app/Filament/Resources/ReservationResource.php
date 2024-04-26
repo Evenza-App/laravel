@@ -186,14 +186,25 @@ class ReservationResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('date')
+                    ->icon('heroicon-o-calendar-days')
+                    ->iconColor('warning')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('start_time')
+                    ->icon('heroicon-o-clock')
+                    ->iconColor('sucess')
                     ->time(),
                 Tables\Columns\TextColumn::make('end_time')
+                    ->icon('heroicon-o-clock')
+                    ->iconColor('success')
                     ->time(),
-                Tables\Columns\TextColumn::make('location'),
+                Tables\Columns\TextColumn::make('location')
+                    ->icon('heroicon-o-map-pin')
+                    // ->iconPosition(IconPosition::After)
+                    ->iconColor('danger'),
                 Tables\Columns\TextColumn::make('number_of_people')
+                    ->icon('heroicon-o-user-plus')
+                    ->iconColor('info')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
@@ -206,12 +217,23 @@ class ReservationResource extends Resource
                             return 'مرفوض';
                         } elseif ($record->status == 'قيد المعالجة') {
                             return 'قيد المعالجة';
+                        } elseif ($record->status == 'بحالة الدفع') {
+                            return 'بحالة الدفع';
                         }
                     })
+                    ->icons([
+                        'heroicon-m-face-smile' => 'مقبول',
+                        'heroicon-m-face-frown' => 'مرفوض',
+                        'heroicon-m-arrow-left-start-on-rectangle' => 'قيد المعالجة',
+                        'heroicon-m-banknotes' => 'بحالة الدفع',
+                        // 'heroicon-m-banknotes'   => 'مكتمل'
+                    ])
                     ->colors([
                         'success' => 'مقبول',
                         'danger' => 'مرفوض',
                         'warning' => 'قيد المعالجة',
+                        'pink' => 'بحالة الدفع',
+                        //'success' => 'مكتمل',
                     ])
                     ->searchable(),
                 Tables\Columns\TextColumn::make('event.name')
@@ -313,7 +335,38 @@ class ReservationResource extends Resource
                             $record->save();
                             Notification::make('رفض')
                                 ->title('تم رفض الحجز')
-                                ->body("حجز يوم{$record->date} تم رفضه")
+                                ->body("حجز يوم {$record->date} تم رفضه")
+                                ->success()
+                                ->send();
+                        }),
+                    Tables\Actions\Action::make('بحالة الدفع')
+                        ->label('بحالة الدفع')
+                        ->color('pink')
+                        ->icon('heroicon-c-banknotes')
+                        ->requiresConfirmation()
+                        ->hidden(fn (Reservation $record) => $record->status !== 'مقبول')
+                        ->action(function (Reservation $record) {
+                            $record->status = 'مكتمل';
+                            $record->save();
+                            Notification::make('الدفع')
+                                ->title('تم الدفع للحجز')
+                                ->body("لهذا الحجز {$record->date} تم الدفع")
+                                ->success()
+                                ->send();
+                        }),
+
+                    Tables\Actions\Action::make('مكتمل')
+                        ->label('اكتمال الحجز')
+                        ->color('pink')
+                        ->icon('heroicon-c-check-circle')
+                        ->requiresConfirmation()
+                        ->hidden(fn (Reservation $record) => $record->status !== 'بحالة الدفع')
+                        ->action(function (Reservation $record) {
+                            $record->status = 'مقبول';
+                            $record->save();
+                            Notification::make('الدفع')
+                                ->title('تم الدفع للحجز')
+                                ->body("لهذا الحجز {$record->date} تم الدفع")
                                 ->success()
                                 ->send();
                         }),
@@ -324,54 +377,89 @@ class ReservationResource extends Resource
                         ->requiresConfirmation()
                         ->modalHeading(' التكلفة')
                         ->modalDescription('تكلفة هذا الحجز')
+                        ->form([
+                            TextInput::make('total_price')
+                                ->required()
+                                ->numeric()
+                                ->prefix('ل.س'),
+                            TextInput::make('message'),
+                        ])
                         // ->modalContent(view(''))
                         //->modalSubmitAction()
                         ->modalSubmitActionLabel('إرسال ')
-                        ->form([
-                            TextInput::make('total_price')
-                                ->numeric()
-                                ->prefix('ل.س'),
-                            TextInput::make('message '),
-                        ])
-                        ->action(function (array $data, Payment $record): void {
-                            $record->total_price = $data['total_price'];
-                            $record->message = $data['message'];
-                            $record->save();
-
-                            // $record->Payment()->associate($data['total_price']);
-                            // $record->Payment()->associate($data['message']);
-
-                            // $this->record->modal_value = $data['modal_value'];
-
-                        })
-
-
-                        // ->action(function (Payment $record) {
-                        //     $record->total_price = total_price;
-                        //     $record->message = 'message';
-                        //     $record->save();
-                        // })
-
-
-                        // ->action(function (Payment $record): void {
-                        //     $record->total_price->associate($record['التكلفة']);
-                        //     $record->message->associate($record['ملاحظة']);
-                        //     $record->save();
-                        //     //$record->sendToDatabase(Payment::class);
-                        // })
-
                         ->hidden(fn (Reservation $record) => $record->status !== 'قيد المعالجة')
-                        ->action(fn ($records) => $records->each->delete())
-                        ->action(function (Reservation $record) {
-                            $record->status = 'مقبول';
+                        ->action(function (array $data, Reservation $record): void {
+                            $record->status = 'بحالة الدفع';
                             $record->save();
+                            $record->total_price = 'total_price';
+                            $record->message = 'message';
+                            $record->Payment()->create($data);
                             Notification::make('قبول')
                                 ->title('تم قبول الحجز')
-                                ->body("حجز يوم{$record->date} تم قبوله")
+                                ->body("حجز يوم {$record->date} تم قبوله")
                                 //->body(" تم قبول حجز {$record->date}الرجاء الدفع ")
                                 ->success()
                                 ->send();
+                            // $record->save();
                         })
+                    //->hidden(fn (Reservation $record) => $record->status !== 'قيد المعالجة'),
+                    // ->action(fn ($records) => $records->each->delete())
+                    // ->action(function (Reservation $record) {
+                    //     $record->status = 'مقبول';
+                    //     $record->save();
+
+                    // })
+
+                    // ->action(function (array $data, Reservation $record): void {
+                    //     $payment = new Payment();
+                    //     $payment->total_price = $data['total_price'];
+                    //     $payment->message = $data['message'];
+
+                    //     $record->Payment()->create($data);
+                    //     $record->save();
+                    // })
+                    // ->action(function (array $data, Reservation $record): void {
+                    //     $data = [
+                    //         'total_price' => $data['total_price'],
+                    //         'message' => $data['message'],
+                    //     ];
+
+                    //     $record->Payment()->create($data);
+                    //     $record->save();
+                    // })
+
+
+                    //  $record->payment()->create($data['total_price']);
+                    // $record->payment()->create($data['message']);
+                    //$record->total_price = $data['total_price'];
+                    //$record->message = $data['message'];
+                    //   $record = Payment::create($data['message']);
+                    //   $record->payment()->create('');
+                    // $record->total_price = $data['total_price'];
+                    // $record->message = $data['message'];
+                    // $record->Payment()->associate($data['total_price']);
+                    // $record->Payment()->associate($data['message']);
+
+                    // $this->record->modal_value = $data['modal_value'];
+
+
+
+
+                    // ->action(function (Payment $record) {
+                    //     $record->total_price = total_price;
+                    //     $record->message = 'message';
+                    //     $record->save();
+                    // })
+
+
+                    // ->action(function (Payment $record): void {
+                    //     $record->total_price->associate($record['التكلفة']);
+                    //     $record->message->associate($record['ملاحظة']);
+                    //     $record->save();
+                    //     //$record->sendToDatabase(Payment::class);
+                    // })
+
+
                     // Tables\Actions\Action::make('قيد المعالجة')
                     //             ->label('قيد المعالجة')
                     //             ->color('warning')

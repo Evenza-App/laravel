@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'unique:users,email'],
-            'birthDate' => ['required', 'date', 'before:' . now()->startOfYear()->subYears(10)->toDateString()],
+            // 'birthDate' => ['required', 'date', 'before:' . now()->startOfYear()->subYears(10)->toDateString()],
             'phone' => ['required', 'string', 'min:10', 'max:10'],
             'address' => ['required', 'string'],
             'password' => [

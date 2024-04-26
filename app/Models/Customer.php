@@ -10,7 +10,10 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'phone', 'address', 'birthDate', 'user_id'];
+    protected $fillable = [
+        'name', 'phone', 'address', //'birthDate',
+        'user_id'
+    ];
 
     /**
      * Get the user that owns the Customer

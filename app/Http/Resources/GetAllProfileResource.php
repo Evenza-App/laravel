@@ -20,7 +20,7 @@ class GetAllProfileResource extends JsonResource
             'name' => $this->name,
             'address' => $this->address,
             'phone' => $this->phone,
-            'birthDate' => $this->birthDate,
+            //   'birthDate' => $this->birthDate,
             'user' => $this->user,
             // 'user' => $this->user->password,
             // 'user'    => UserResource::collection($this->whenLoaded('user'))

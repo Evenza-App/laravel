@@ -44,16 +44,16 @@ class CustomerResource extends Resource
                             ->required()
                             //->type('color')
                             ->maxLength(255),
-                        Forms\Components\DatePicker::make('birthDate')
-                            ->required()
-                            ->maxDate('today'),
+                        // Forms\Components\DatePicker::make('birthDate')
+                        //     ->required()
+                        //     ->maxDate('today'),
                         Forms\Components\TextInput::make('phone')
                             ->tel()
                             ->required()
                             ->maxLength(255),
                         Forms\Components\Textarea::make('address')
-                            ->required(),
-                        //->columnSpanFull(),
+                            ->required()
+                            ->columnSpanFull(),
                         // Forms\Components\Select::make('user_id')
                         //     ->relationship('user', 'id')
                         //     ->required(),
@@ -75,11 +75,11 @@ class CustomerResource extends Resource
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
-                            ->label('أنشئ بتاريخ ')
+                            ->label('أنشئ  ')
                             ->content(fn (Customer $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
-                            ->label('عدل بتاريخ')
+                            ->label('عدل ')
                             ->content(fn (Customer $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
@@ -141,15 +141,15 @@ class CustomerResource extends Resource
                             ->alignLeft(),
                     ])->space(),
 
-                    Tables\Columns\Layout\Stack::make([
-                        Tables\Columns\TextColumn::make('birthDate')
-                            ->icon('heroicon-m-calendar-days')
-                            // ->iconPosition(IconPosition::After)
-                            ->iconColor('warning')
-                            ->label('عيدالميلاد')
-                            ->date()
-                            ->alignLeft(),
-                    ])->space(3),
+                    // Tables\Columns\Layout\Stack::make([
+                    //     Tables\Columns\TextColumn::make('birthDate')
+                    //         ->icon('heroicon-m-calendar-days')
+                    //         // ->iconPosition(IconPosition::After)
+                    //         ->iconColor('warning')
+                    //         ->label('عيدالميلاد')
+                    //         ->date()
+                    //         ->alignLeft(),
+                    // ])->space(3),
 
                     Tables\Columns\Layout\Stack::make([
                         Tables\Columns\TextColumn::make('phone')

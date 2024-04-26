@@ -68,7 +68,7 @@ class EventResource extends Resource
                             ->options([
                                 'string' => 'مربع نصي',
                                 'number' => 'رقم',
-                                'select' => 'قائمة منسدلة',
+                                'select' => 'سؤال و خياراته',
                             ])
                             ->live()
                             ->required(),
@@ -92,6 +92,16 @@ class EventResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
+                    ->icons([
+                        'heroicon-m-cake' => 'عيد ميلاد',
+                        'heroicon-m-gift' => ' افتتاح ',
+                        'heroicon-m-user-group' => 'حفل زفاف',
+                        'heroicon-m-users' => 'حفلة خطوبة',
+                        'heroicon-m-user-plus' => 'حفلة تحديد جنس المولود',
+                        'heroicon-m-academic-cap' => 'حفلة تخرج',
+
+                    ])
+                    ->iconColor('primary')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
