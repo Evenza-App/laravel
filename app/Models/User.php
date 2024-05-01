@@ -4,7 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Panel;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Traits\Models\HasFcmToken;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
@@ -16,6 +18,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements FilamentUser, HasName
 {
     use HasFactory, Notifiable, HasApiTokens;
+    use Billable;
+    use HasFcmToken;
 
     public function getFilamentName(): string
     {
