@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Photographer;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PhotographerSeeder extends Seeder
 {
@@ -30,8 +29,8 @@ class PhotographerSeeder extends Seeder
         // ]);
         // DB::table('photographers')->delete();
         Photographer::query()->delete();
-        $photograohers = array(
-            array(
+        $photograohers = [
+            [
                 'name' => 'ليليان وهبي', 'image' => 'Ellipse 6.png', 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات',
                 // 'numOfhours' => 3,
@@ -40,8 +39,8 @@ class PhotographerSeeder extends Seeder
                     'Ellipse 6.png',
                     'Ellipse 6.png',
                 ]),
-            ),
-            array(
+            ],
+            [
                 'name' => 'سعيد مصلح', 'image' => 'Ellipse 6-2.png', 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات
             بالإضافة إلى تصوير حديثي الولادة',
@@ -51,8 +50,8 @@ class PhotographerSeeder extends Seeder
                     'Ellipse 6-2.png',
                     'Ellipse 6-2.png',
                 ]),
-            ),
-            array(
+            ],
+            [
                 'name' => 'هبة جويد',
                 'image' => 'Ellipse 6-1.png',
                 'bio' => 'تصوير جميع المناسبات
@@ -64,9 +63,9 @@ class PhotographerSeeder extends Seeder
                     'Ellipse 6-1.png',
                     'Ellipse 6-1.png',
                 ]),
-            ),
-            array(
-                'name' =>  ' ساهر سويدان ', 'image' => 'Ellipse 6-3.png',
+            ],
+            [
+                'name' => ' ساهر سويدان ', 'image' => 'Ellipse 6-3.png',
                 'bio' => 'تصوير جميع المناسبات
             مع توافر جميع الإكسسوارات
             بالإضافة إلى تصوير حديثي الولادة',
@@ -76,8 +75,8 @@ class PhotographerSeeder extends Seeder
                     'Ellipse 6-3.png',
                     'Ellipse 6-3.png',
                 ]),
-            ),
-        );
+            ],
+        ];
         Photographer::insert($photograohers);
         // DB::table('photographers')->insert($photograohers);
     }

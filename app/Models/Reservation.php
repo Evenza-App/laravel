@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Traits\Models\HasImage;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reservation extends Model
 {
@@ -17,13 +17,8 @@ class Reservation extends Model
 
     protected $fillable = ['image', 'date', 'start_time', 'end_time', 'location', 'number_of_people', 'status', 'event_id', 'photographer_id', 'user_id'];
 
-
-
-
     /**
      * The roles that belong to the Reservation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function buffets(): BelongsToMany
     {
@@ -32,8 +27,6 @@ class Reservation extends Model
 
     /**
      * Get the user that owns the Reservation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function photographer(): BelongsTo
     {
@@ -42,17 +35,14 @@ class Reservation extends Model
 
     /**
      * Get the user that owns the Reservation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
+
     /**
      * Get the user that owns the Reservation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -61,8 +51,6 @@ class Reservation extends Model
 
     /**
      * Get all of the comments for the Reservation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function details(): HasMany
     {
@@ -71,8 +59,6 @@ class Reservation extends Model
 
     /**
      * Get the user associated with the Reservation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function payment(): HasOne
     {

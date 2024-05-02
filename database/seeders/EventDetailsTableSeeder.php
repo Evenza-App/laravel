@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class EventDetailsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -15,12 +14,10 @@ class EventDetailsTableSeeder extends Seeder
     public function run()
     {
 
-
         \DB::table('event_details')->delete();
 
-        \DB::table('event_details')->insert(array(
-            0 =>
-            array(
+        \DB::table('event_details')->insert([
+            0 => [
                 'id' => 1,
                 'name' => 'اسم صاحب الاحتفال',
                 'type' => 'string',
@@ -29,9 +26,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 1,
                 'created_at' => '2024-04-13 07:20:28',
                 'updated_at' => '2024-04-13 07:21:08',
-            ),
-            1 =>
-            array(
+            ],
+            1 => [
                 'id' => 2,
                 'name' => 'عمر صاحب الاحتفال',
                 'type' => 'number',
@@ -40,9 +36,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 1,
                 'created_at' => '2024-04-13 07:20:28',
                 'updated_at' => '2024-04-13 07:21:08',
-            ),
-            2 =>
-            array(
+            ],
+            2 => [
                 'id' => 3,
                 'name' => 'الجنس',
                 'type' => 'select',
@@ -51,9 +46,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 1,
                 'created_at' => '2024-04-13 07:20:28',
                 'updated_at' => '2024-04-13 07:21:08',
-            ),
-            3 =>
-            array(
+            ],
+            3 => [
                 'id' => 4,
                 'name' => 'الألوان المفضلة',
                 'type' => 'string',
@@ -62,9 +56,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 1,
                 'created_at' => '2024-04-13 07:20:28',
                 'updated_at' => '2024-04-13 07:21:08',
-            ),
-            4 =>
-            array(
+            ],
+            4 => [
                 'id' => 5,
                 'name' => 'الثيم',
                 'type' => 'select',
@@ -73,9 +66,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 1,
                 'created_at' => '2024-04-13 07:20:28',
                 'updated_at' => '2024-04-13 07:21:08',
-            ),
-            5 =>
-            array(
+            ],
+            5 => [
                 'id' => 6,
                 'name' => 'هل تريد/ تريدين إضاءة إضافية ؟',
                 'type' => 'select',
@@ -84,9 +76,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 1,
                 'created_at' => '2024-04-13 07:20:28',
                 'updated_at' => '2024-04-13 07:21:08',
-            ),
-            6 =>
-            array(
+            ],
+            6 => [
                 'id' => 7,
                 'name' => 'اسم الشركة ',
                 'type' => 'string',
@@ -95,9 +86,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 2,
                 'created_at' => '2024-04-13 07:25:22',
                 'updated_at' => '2024-04-13 07:25:36',
-            ),
-            7 =>
-            array(
+            ],
+            7 => [
                 'id' => 8,
                 'name' => 'اختصاص الشركة ',
                 'type' => 'string',
@@ -106,9 +96,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 2,
                 'created_at' => '2024-04-13 07:25:22',
                 'updated_at' => '2024-04-13 07:25:36',
-            ),
-            8 =>
-            array(
+            ],
+            8 => [
                 'id' => 9,
                 'name' => 'الألوان المفضلة',
                 'type' => 'string',
@@ -117,9 +106,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 2,
                 'created_at' => '2024-04-13 07:25:22',
                 'updated_at' => '2024-04-13 07:25:36',
-            ),
-            9 =>
-            array(
+            ],
+            9 => [
                 'id' => 10,
                 'name' => 'الثيم',
                 'type' => 'select',
@@ -128,9 +116,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 2,
                 'created_at' => '2024-04-13 07:25:22',
                 'updated_at' => '2024-04-13 07:25:36',
-            ),
-            10 =>
-            array(
+            ],
+            10 => [
                 'id' => 11,
                 'name' => 'هل تريد / تريدين  إضاءة إضافية ؟',
                 'type' => 'select',
@@ -139,9 +126,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 2,
                 'created_at' => '2024-04-13 07:25:22',
                 'updated_at' => '2024-04-13 07:25:36',
-            ),
-            11 =>
-            array(
+            ],
+            11 => [
                 'id' => 12,
                 'name' => 'اسم العروس',
                 'type' => 'string',
@@ -150,9 +136,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 3,
                 'created_at' => '2024-04-13 07:30:18',
                 'updated_at' => '2024-04-13 07:44:01',
-            ),
-            12 =>
-            array(
+            ],
+            12 => [
                 'id' => 13,
                 'name' => 'اسم العريس',
                 'type' => 'string',
@@ -161,9 +146,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 3,
                 'created_at' => '2024-04-13 07:30:18',
                 'updated_at' => '2024-04-13 07:44:01',
-            ),
-            13 =>
-            array(
+            ],
+            13 => [
                 'id' => 14,
                 'name' => 'الألوان المفضلة ',
                 'type' => 'string',
@@ -172,9 +156,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 3,
                 'created_at' => '2024-04-13 07:30:18',
                 'updated_at' => '2024-04-13 07:44:01',
-            ),
-            14 =>
-            array(
+            ],
+            14 => [
                 'id' => 15,
                 'name' => 'الثيم  ',
                 'type' => 'select',
@@ -183,9 +166,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 3,
                 'created_at' => '2024-04-13 07:30:18',
                 'updated_at' => '2024-04-13 07:44:01',
-            ),
-            15 =>
-            array(
+            ],
+            15 => [
                 'id' => 16,
                 'name' => 'هل تريد / تريدين  إضاءة إضافية ؟',
                 'type' => 'select',
@@ -194,9 +176,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 3,
                 'created_at' => '2024-04-13 07:30:18',
                 'updated_at' => '2024-04-13 07:44:01',
-            ),
-            16 =>
-            array(
+            ],
+            16 => [
                 'id' => 17,
                 'name' => 'هل تريد / تريدين بإضافة أكاليل زهور ؟',
                 'type' => 'select',
@@ -205,9 +186,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 3,
                 'created_at' => '2024-04-13 07:30:18',
                 'updated_at' => '2024-04-13 07:44:01',
-            ),
-            17 =>
-            array(
+            ],
+            17 => [
                 'id' => 18,
                 'name' => 'اسم العروس',
                 'type' => 'string',
@@ -216,9 +196,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 4,
                 'created_at' => '2024-04-13 07:34:26',
                 'updated_at' => '2024-04-13 07:47:30',
-            ),
-            18 =>
-            array(
+            ],
+            18 => [
                 'id' => 19,
                 'name' => 'اسم العريس ',
                 'type' => 'string',
@@ -227,9 +206,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 4,
                 'created_at' => '2024-04-13 07:34:26',
                 'updated_at' => '2024-04-13 07:47:31',
-            ),
-            19 =>
-            array(
+            ],
+            19 => [
                 'id' => 20,
                 'name' => 'الألوان المفضلة',
                 'type' => 'string',
@@ -238,9 +216,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 4,
                 'created_at' => '2024-04-13 07:34:26',
                 'updated_at' => '2024-04-13 07:47:31',
-            ),
-            20 =>
-            array(
+            ],
+            20 => [
                 'id' => 21,
                 'name' => 'الثيم  ',
                 'type' => 'select',
@@ -249,9 +226,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 4,
                 'created_at' => '2024-04-13 07:34:26',
                 'updated_at' => '2024-04-13 07:47:31',
-            ),
-            21 =>
-            array(
+            ],
+            21 => [
                 'id' => 22,
                 'name' => 'هل تريد / تريدين  إضاءة إضافية ؟',
                 'type' => 'select',
@@ -260,9 +236,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 4,
                 'created_at' => '2024-04-13 07:34:26',
                 'updated_at' => '2024-04-13 07:47:31',
-            ),
-            22 =>
-            array(
+            ],
+            22 => [
                 'id' => 23,
                 'name' => 'هل تريد / تريدين بإضافة أكاليل زهور ؟',
                 'type' => 'select',
@@ -271,9 +246,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 4,
                 'created_at' => '2024-04-13 07:34:26',
                 'updated_at' => '2024-04-13 07:47:31',
-            ),
-            23 =>
-            array(
+            ],
+            23 => [
                 'id' => 24,
                 'name' => 'اسم الأب ',
                 'type' => 'string',
@@ -282,9 +256,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 5,
                 'created_at' => '2024-04-13 07:38:35',
                 'updated_at' => '2024-04-13 07:38:35',
-            ),
-            24 =>
-            array(
+            ],
+            24 => [
                 'id' => 25,
                 'name' => 'اسم الأم  ',
                 'type' => 'string',
@@ -293,9 +266,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 5,
                 'created_at' => '2024-04-13 07:38:35',
                 'updated_at' => '2024-04-13 07:38:35',
-            ),
-            25 =>
-            array(
+            ],
+            25 => [
                 'id' => 26,
                 'name' => 'اسم المولود  ',
                 'type' => 'string',
@@ -304,9 +276,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 5,
                 'created_at' => '2024-04-13 07:38:35',
                 'updated_at' => '2024-04-13 07:38:35',
-            ),
-            26 =>
-            array(
+            ],
+            26 => [
                 'id' => 27,
                 'name' => 'جنس المولود ',
                 'type' => 'select',
@@ -315,9 +286,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 5,
                 'created_at' => '2024-04-13 07:38:35',
                 'updated_at' => '2024-04-13 07:38:35',
-            ),
-            27 =>
-            array(
+            ],
+            27 => [
                 'id' => 28,
                 'name' => 'الثيم  ',
                 'type' => 'select',
@@ -326,9 +296,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 5,
                 'created_at' => '2024-04-13 07:38:35',
                 'updated_at' => '2024-04-13 07:38:35',
-            ),
-            28 =>
-            array(
+            ],
+            28 => [
                 'id' => 29,
                 'name' => 'هل تريد / تريدين  إضاءة إضافية ؟',
                 'type' => 'select',
@@ -337,9 +306,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 5,
                 'created_at' => '2024-04-13 07:38:35',
                 'updated_at' => '2024-04-13 07:38:35',
-            ),
-            29 =>
-            array(
+            ],
+            29 => [
                 'id' => 30,
                 'name' => 'اسم صاحب الاحتفال',
                 'type' => 'string',
@@ -348,9 +316,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 6,
                 'created_at' => '2024-04-13 07:42:19',
                 'updated_at' => '2024-04-13 07:42:19',
-            ),
-            30 =>
-            array(
+            ],
+            30 => [
                 'id' => 31,
                 'name' => 'الاختصاص ',
                 'type' => 'string',
@@ -359,9 +326,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 6,
                 'created_at' => '2024-04-13 07:42:19',
                 'updated_at' => '2024-04-13 07:42:19',
-            ),
-            31 =>
-            array(
+            ],
+            31 => [
                 'id' => 32,
                 'name' => 'الجنس  ',
                 'type' => 'select',
@@ -370,9 +336,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 6,
                 'created_at' => '2024-04-13 07:42:19',
                 'updated_at' => '2024-04-13 07:42:19',
-            ),
-            32 =>
-            array(
+            ],
+            32 => [
                 'id' => 33,
                 'name' => 'الألوان المفضلة',
                 'type' => 'string',
@@ -381,9 +346,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 6,
                 'created_at' => '2024-04-13 07:42:19',
                 'updated_at' => '2024-04-13 07:42:19',
-            ),
-            33 =>
-            array(
+            ],
+            33 => [
                 'id' => 34,
                 'name' => 'الثيم  ',
                 'type' => 'select',
@@ -392,9 +356,8 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 6,
                 'created_at' => '2024-04-13 07:42:19',
                 'updated_at' => '2024-04-13 07:42:19',
-            ),
-            34 =>
-            array(
+            ],
+            34 => [
                 'id' => 35,
                 'name' => 'هل تريد / تريدين  إضاءة إضافية ؟',
                 'type' => 'select',
@@ -403,7 +366,7 @@ class EventDetailsTableSeeder extends Seeder
                 'event_id' => 6,
                 'created_at' => '2024-04-13 07:42:19',
                 'updated_at' => '2024-04-13 07:42:19',
-            ),
-        ));
+            ],
+        ]);
     }
 }

@@ -2,29 +2,23 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
+use App\Filament\Resources\ReservationResource\Pages;
+use App\Models\Payment;
 use App\Models\Reservation;
-use Filament\Infolists\Infolist;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Fieldset;
 use App\Traits\Filament\HasTranslations;
+use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
-use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\Wizard\Step;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Forms\Form;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\RepeatableEntry;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ReservationResource\Pages;
-use App\Filament\Resources\ReservationResource\RelationManagers;
-use App\Models\AdminMessage;
-use App\Models\Payment;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
+use Filament\Notifications\Notification;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 
 class ReservationResource extends Resource
 {
@@ -51,7 +45,6 @@ class ReservationResource extends Resource
     {
         return true;
     }
-
 
     public static function form(Form $form): Form
     {
@@ -100,7 +93,6 @@ class ReservationResource extends Resource
                     //->description('معلومات الحجز المدخلة من قبل الزبون هنا')
                     ->schema([
 
-
                         Forms\Components\TextInput::make('status')
                             ->required()
                             // ->badge()
@@ -137,17 +129,17 @@ class ReservationResource extends Resource
                     // ->description(' حساب الزبون ')
                     ->schema([
                         ImageEntry::make('image'),
-                    ]),
+                    ])->collapsible(),
                 Section::make('حساب الزبون')
                     // ->description(' حساب الزبون ')
                     ->schema([
                         TextEntry::make('user.email'),
-                    ]),
+                    ])->collapsible(),
                 Section::make(' المناسبة  ')
                     ->description(' المناسبة التي قام الزبون باختيارها ')
                     ->schema([
                         TextEntry::make('event.name'),
-                    ]),
+                    ])->collapsible(),
                 Section::make(' معلومات الحجز')
                     ->schema([
                         TextEntry::make('start_time'),
@@ -155,12 +147,14 @@ class ReservationResource extends Resource
                         TextEntry::make('date'),
                         TextEntry::make('location'),
                         TextEntry::make('number_of_people'),
-                    ])->columns(2),
+                    ])->columns(2)
+                    ->collapsible(),
                 Section::make(' المصور ')
                     ->description(' المصور التي قام الزبون باختياره ')
                     ->schema([
                         TextEntry::make('photographer.name'),
-                    ])->columns(2),
+                    ])->columns(2)
+                    ->collapsible(),
                 Section::make(' البوفيهات ')
                     ->description(' البوفيهات التي قام الزبون باختيارها ')
                     ->schema([
@@ -168,7 +162,7 @@ class ReservationResource extends Resource
                             ->schema([
                                 TextEntry::make('name')->label('اسم البوفيه'),
                             ])->columns(2),
-                    ]),
+                    ])->collapsible(),
                 Section::make(' معلومات الديكور     ')
                     ->description(' المعلومات التي قام الزبون ب تعبئتها ')
                     ->schema([
@@ -177,9 +171,19 @@ class ReservationResource extends Resource
                                 TextEntry::make('name')->label('السؤال'),
                                 TextEntry::make('value')->label('الجواب'),
                             ])->columns(2),
-                    ]),
+                    ])->collapsible(),
+                Section::make(' معلومات الدفع ')
+                    //->hidden()->when('status', 'بحالة الدفع')
+                    ->hidden(fn (Forms\Get $get) => $get('status') != 'بحالة الدفع')
+                    //  ->description('')
+                    ->schema([
+                        TextEntry::make('payment.total_price'),
+                        TextEntry::make('payment.message'),
+                    ])->collapsible(),
+
             ]);
     }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -401,7 +405,7 @@ class ReservationResource extends Resource
                                 ->success()
                                 ->send();
                             // $record->save();
-                        })
+                        }),
                     //->hidden(fn (Reservation $record) => $record->status !== 'قيد المعالجة'),
                     // ->action(fn ($records) => $records->each->delete())
                     // ->action(function (Reservation $record) {
@@ -428,7 +432,6 @@ class ReservationResource extends Resource
                     //     $record->save();
                     // })
 
-
                     //  $record->payment()->create($data['total_price']);
                     // $record->payment()->create($data['message']);
                     //$record->total_price = $data['total_price'];
@@ -442,15 +445,11 @@ class ReservationResource extends Resource
 
                     // $this->record->modal_value = $data['modal_value'];
 
-
-
-
                     // ->action(function (Payment $record) {
                     //     $record->total_price = total_price;
                     //     $record->message = 'message';
                     //     $record->save();
                     // })
-
 
                     // ->action(function (Payment $record): void {
                     //     $record->total_price->associate($record['التكلفة']);
@@ -458,7 +457,6 @@ class ReservationResource extends Resource
                     //     $record->save();
                     //     //$record->sendToDatabase(Payment::class);
                     // })
-
 
                     // Tables\Actions\Action::make('قيد المعالجة')
                     //             ->label('قيد المعالجة')

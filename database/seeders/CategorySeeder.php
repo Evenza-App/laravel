@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CategorySeeder extends Seeder
 {
@@ -31,11 +30,11 @@ class CategorySeeder extends Seeder
 
         // DB::table('categories')->delete();
         Category::query()->delete();
-        $categories = array(
-            array('name' => "شرقي", 'image' => 'شرقي.png'),
-            array('name' => "غربي", 'image' => 'غربي.png'),
-            array('name' => "حلويات", 'image' => 'حلويات.png'),
-        );
+        $categories = [
+            ['name' => 'شرقي', 'image' => 'شرقي.png'],
+            ['name' => 'غربي', 'image' => 'غربي.png'],
+            ['name' => 'حلويات', 'image' => 'حلويات.png'],
+        ];
         Category::insert($categories);
         // DB::table('categories')->insert($categories);
     }

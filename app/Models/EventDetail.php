@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Traits\Models\HasImage;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EventDetail extends Model
 {
@@ -15,19 +15,13 @@ class EventDetail extends Model
 
     protected $fillable = ['name', 'type', 'options', 'is_required', 'event_id'];
 
-
     protected $casts = [
         'options' => 'array',
         'is_required' => 'boolean',
     ];
 
-
-
-
     /**
      * Get the user that owns the EventDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function event(): BelongsTo
     {
@@ -36,8 +30,6 @@ class EventDetail extends Model
 
     /**
      * Get all of the comments for the EventDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function reservationdetails(): HasMany
     {

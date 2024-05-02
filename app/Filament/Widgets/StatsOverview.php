@@ -4,7 +4,6 @@ namespace App\Filament\Widgets;
 
 use App\Models\Customer;
 use App\Models\Reservation;
-use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 

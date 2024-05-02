@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\MyEventDetailsResource;
+use App\Models\EventDetail;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class MyEventDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::paginate();
-
-        return CategoryResource::collection($categories);
+        //
     }
 
     /**
@@ -29,15 +28,15 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Reservation $event)
     {
-        //
+        return MyEventDetailsResource::make($event);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -45,7 +44,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(string $id)
     {
         //
     }

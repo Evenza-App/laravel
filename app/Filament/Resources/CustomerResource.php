@@ -3,19 +3,16 @@
 namespace App\Filament\Resources;
 
 // use function;
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Customer;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Fieldset;
-use App\Traits\Filament\HasTranslations;
-use Filament\Support\Enums\IconPosition;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\CustomerResource\RelationManagers;
+use App\Models\Customer;
+use App\Traits\Filament\HasTranslations;
+use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Support\Enums\IconPosition;
+use Filament\Tables;
+use Filament\Tables\Table;
 
 class CustomerResource extends Resource
 {
@@ -166,7 +163,6 @@ class CustomerResource extends Resource
                             ->label('العنوان')
                             ->alignLeft(),
                     ])->space(3),
-
 
                 ])->from('md'),
             ])

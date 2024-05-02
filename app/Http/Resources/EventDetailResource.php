@@ -15,13 +15,13 @@ class EventDetailResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
-        return ([
+        return [
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
             'options' => $this->options,
             'is_required' => $this->is_required,
             //'event' => $this->event->name,
-        ]);
+        ];
     }
 }

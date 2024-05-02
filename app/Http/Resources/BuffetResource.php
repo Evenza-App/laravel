@@ -14,7 +14,7 @@ class BuffetResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return ([
+        return [
 
             'id' => $this->id,
             'name' => $this->name,
@@ -24,8 +24,6 @@ class BuffetResource extends JsonResource
             'price' => $this->price,
             'category' => $this->category->name,
 
-
-
-        ]);
+        ];
     }
 }

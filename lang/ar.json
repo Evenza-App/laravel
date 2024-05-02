@@ -26,6 +26,8 @@
     "photographer.name": "اسم المصور ",
     "User": "المستخدم  ",
     "user.email": "البريد الإلكنروتي ",
+    "payment.total_price": "المبلغ الكلي",
+    "payment.message": "ملاحظة",
     "email": "البريد الإلكنروتي ",
     "price": "السعر ",
     "password": "كلمة المرور ",
@@ -56,5 +58,7 @@
     "category_id": "الصنف ",
     "created_at": "أنشئ بتاريخ ",
     "updated_at": "عدل بتاريخ ",
-    "ingredients": "المكونات "
+    "ingredients": "المكونات ",
+    "total_price": "المبلغ الكلي",
+    "message": "ملاحظة "
 }

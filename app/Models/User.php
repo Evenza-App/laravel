@@ -3,23 +3,23 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\Models\HasFcmToken;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Traits\Models\HasFcmToken;
-use Filament\Models\Contracts\HasName;
-use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\FilamentUser;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements FilamentUser, HasName
 {
-    use HasFactory, Notifiable, HasApiTokens;
     use Billable;
-    use HasFcmToken;
+    use HasApiTokens, HasFactory, Notifiable;
+    //use HasFcmToken;
 
     public function getFilamentName(): string
     {
@@ -31,6 +31,7 @@ class User extends Authenticatable implements FilamentUser, HasName
         if ($panel->getId() == 'admin' && $this->admin) {
             return true;
         }
+
         return false;
     }
 
@@ -69,8 +70,6 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     /**
      * Get the customer associated with the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function customer(): HasOne
     {
@@ -79,8 +78,6 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     /**
      * Get the user associated with the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function admin(): HasOne
     {
@@ -89,8 +86,6 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     /**
      * Get all of the comments for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function reservations(): HasMany
     {

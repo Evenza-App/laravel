@@ -14,11 +14,12 @@ class PhotographerController extends Controller
      */
     public function index(SearchPhotographerRequest $Request)
     {
-        $photographers  = Photographer::query()
+        $photographers = Photographer::query()
             // ->where('id', $Request->photographer)
             ->when($Request->search, fn ($query, $search) => $query
-                ->where('name', 'LIKE', '%' . $search . '%'))
+                ->where('name', 'LIKE', '%'.$search.'%'))
             ->paginate(5);
+
         return PhotographerResource::collection($photographers);
     }
 

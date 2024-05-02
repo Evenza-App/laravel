@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BuffetResource\Pages;
-use App\Filament\Resources\BuffetResource\RelationManagers;
 use App\Models\Buffet;
 use App\Traits\Filament\HasTranslations;
 use Filament\Forms;
@@ -12,12 +11,11 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BuffetResource extends Resource
 {
     use HasTranslations;
+
     protected static ?string $model = Buffet::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-pie';

@@ -36,7 +36,6 @@ class CustomerChart extends ChartWidget
     //     return 'bar';
     // }
 
-
     protected function getData(): array
     {
         $data = $this->getProductsPerMonth();
@@ -45,10 +44,10 @@ class CustomerChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'الزبائن في كل شهر  ',
-                    'data' => $data['customersPerMonth']
-                ]
+                    'data' => $data['customersPerMonth'],
+                ],
             ],
-            'labels' => $data['months']
+            'labels' => $data['months'],
         ];
     }
 
@@ -75,11 +74,6 @@ class CustomerChart extends ChartWidget
         ];
     }
 
-
-
-
-
-
     // protected function getData(): array
     // {
     //     $data = $this->getCustomersPerMonth();
@@ -94,7 +88,6 @@ class CustomerChart extends ChartWidget
     //         'labels' => $data['months']
     //     ];
     // }
-
 
     // protected function getType(): string
     // {
@@ -132,6 +125,5 @@ class CustomerChart extends ChartWidget
     //         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     //     ];
     // }
-
 
 }

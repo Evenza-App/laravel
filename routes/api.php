@@ -5,7 +5,6 @@ use App\Http\Controllers\BuffetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\EventDetailController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyEventController;
 use App\Http\Controllers\PhotographerController;
@@ -18,12 +17,13 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
 Route::apiResource('customer', CustomerController::class);
 
 // Route::get('customer/{customer}', [CustomerController::class, 'show']);
 
-Route::Put('customer/{customer}', [CustomerController::class, 'update']);
+Route::Post('customer/{customer}', [CustomerController::class, 'update']);
+
+// Route::Put('customer/{customer}', [CustomerController::class, 'update']);
 
 Route::post('login', [AuthenticationController::class, 'login']);
 
@@ -49,6 +49,7 @@ Route::apiResource('home', HomeController::class);
 
 Route::apiResource('myevents', MyEventController::class)
     ->middleware('auth:sanctum');
+Route::get('myevents/{myevent}', [MyEventController::class, 'show']);
 
 // Route::get('popular', function () {
 //     $popular = Event::query()

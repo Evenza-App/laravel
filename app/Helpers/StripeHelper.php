@@ -15,8 +15,6 @@
 
 namespace App\Helpers;
 
-use Illuminate\Database\Eloquent\Collection;
-
 class StripeHelper
 {
     public function charge($user, $request, $confirmation_number, $reservations = null)
@@ -36,12 +34,12 @@ class StripeHelper
             'metadata' => [
                 'Confirmation # ' => $confirmation_number,
                 'Item(s)' => json_encode([
-                    'Product Code: dmc-alp ' .
-                        'Product Name: damascus to aleppo ' .
-                        'Product Qty: 1 '
+                    'Product Code: dmc-alp '.
+                        'Product Name: damascus to aleppo '.
+                        'Product Qty: 1 ',
                 ]),
                 'Total Item(s) Count' => $reservations?->sum(fn ($item) => $item->price) ?? 100,
-                'Discount' => $discountCode . ': -$' . $discountValue . ' off',
+                'Discount' => $discountCode.': -$'.$discountValue.' off',
             ],
         ]);
         $payment = $payment->asStripePaymentIntent();

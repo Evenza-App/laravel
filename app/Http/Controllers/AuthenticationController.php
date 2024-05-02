@@ -2,35 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\RegisterRequest;
-
 
 class AuthenticationController extends Controller
 {
     //
 
-    public function login(LoginRequest  $request)
+    public function login(LoginRequest $request)
     {
 
         $user = User::query()->where('email', $request->email)->first();
 
-        if (!Hash::check($request->password, $user->password)) {
+        if (! Hash::check($request->password, $user->password)) {
             return response([
                 'message' => 'unauthenticated',
             ], status: 401);
         }
 
         $token = $user->createToken('token')->plainTextToken;
+
         return response([
-            'token' => $token
+            'token' => $token,
         ]);
     }
-
-
 
     public function register(RegisterRequest $request)
     {
@@ -42,11 +40,11 @@ class AuthenticationController extends Controller
         $user->customer()->create($request->validated());
 
         $token = $user->createToken('token')->plainTextToken;
+
         return response([
-            'token' => $token
+            'token' => $token,
         ]);
     }
-
 
     public function logout()
     {
@@ -60,10 +58,7 @@ class AuthenticationController extends Controller
         //     'message' => 'Successfully logged out'
         // ]);
 
-
     }
-
-
 
     // public function logoutApi()
     // {

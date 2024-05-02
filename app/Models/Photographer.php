@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Traits\Models\HasImage;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Photographer extends Model
 {
@@ -22,7 +22,7 @@ class Photographer extends Model
                 $value = json_decode($value);
                 if (request()->expectsJson()) {
                     foreach ($value as &$image) {
-                        $image = asset('storage/' . $image);
+                        $image = asset('storage/'.$image);
                     }
                 }
 
@@ -32,11 +32,8 @@ class Photographer extends Model
         );
     }
 
-
     /**
      * Get all of the comments for the Photographer
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function reservations(): HasMany
     {

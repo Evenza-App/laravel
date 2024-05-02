@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class HomeEventResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +14,14 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        //  return parent::toArray($request);
+        // return parent::toArray($request);
         return [
+
             'id' => $this->id,
-            'email' => $this->email,
-            'password' => $this->password,
-            // 'email_verified_at'=>$this->email_verified_at,
+            'name' => $this->name,
+            'image' => $this->image,
+            'date' => $this->date,
+            'location' => $this->location,
 
         ];
     }

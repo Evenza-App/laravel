@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
-use Illuminate\Http\Request;
 use App\Http\Requests\UpdateRequest;
 use App\Http\Resources\GetAllProfileResource;
+use App\Http\Resources\UserResource;
+use App\Models\Customer;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
@@ -43,6 +44,7 @@ class CustomerController extends Controller
     {
         //return $customer;
         $customer->load('user');
+
         return GetAllProfileResource::make($customer);
     }
 
@@ -54,7 +56,7 @@ class CustomerController extends Controller
         //$data = $request->validated() + ['user_id' => auth()->id()];
         $data = $request->validated();
         $customer->update($data);
-        return $customer;
+        return GetAllProfileResource::make($customer);
     }
 
     /**

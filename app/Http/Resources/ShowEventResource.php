@@ -19,7 +19,7 @@ class ShowEventResource extends JsonResource
             'name' => $this->name,
             'image' => $this->image,
             //'details' => $this->details,
-            'details'    => EventDetailResource::collection($this->whenLoaded('details'))
+            'details' => EventDetailResource::collection($this->whenLoaded('details')),
 
         ];
     }

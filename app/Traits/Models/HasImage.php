@@ -9,7 +9,7 @@ trait HasImage
     public function image(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => request()->expectsJson() ? asset('storage/' . $value) : $value,
+            get: fn ($value) => request()->expectsJson() ? asset('storage/'.$value) : $value,
         );
     }
 }

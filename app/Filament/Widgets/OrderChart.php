@@ -3,8 +3,8 @@
 namespace App\Filament\Widgets;
 
 use App\Filament\Resources\ReservationResource;
-use Carbon\Carbon;
 use App\Models\Reservation;
+use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 
@@ -25,10 +25,10 @@ class OrderChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'الحجوزات في كل شهر  ',
-                    'data' => $data['reservationsPerMonth']
-                ]
+                    'data' => $data['reservationsPerMonth'],
+                ],
             ],
-            'labels' => $data['months']
+            'labels' => $data['months'],
         ];
     }
 

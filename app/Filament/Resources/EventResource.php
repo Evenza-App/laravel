@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EventResource\Pages;
-use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
 use App\Traits\Filament\HasTranslations;
 use Filament\Forms;
@@ -11,13 +10,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class EventResource extends Resource
 {
-
     use HasTranslations;
+
     protected static ?string $model = Event::class;
 
     //protected static ?string $navigationIcon = 'heroicon-o-cake';
@@ -40,7 +37,6 @@ class EventResource extends Resource
         return true;
     }
 
-
     public static function form(Form $form): Form
     {
         return $form
@@ -55,7 +51,7 @@ class EventResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('name')
                             ->required()
-                            ->maxLength(255)
+                            ->maxLength(255),
                     ])->columns(2),
                 Forms\Components\Repeater::make('details')
                     ->label(' التفاصيل الخاصة في ديكور المناسبة')
@@ -79,7 +75,7 @@ class EventResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->required(),
-                            ])
+                            ]),
                     ])
                     // ->columns(2),
                     ->columnSpanFull(),

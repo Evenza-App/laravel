@@ -14,12 +14,13 @@ class BuffetController extends Controller
      */
     public function index(SearchBuffetRequest $Request)
     {
-        $buffets  = Buffet::query()
+        $buffets = Buffet::query()
             ->where('category_id', $Request->category)
             //->where('type', $Request->type)
             ->when($Request->search, fn ($query, $search) => $query
-                ->where('name', 'LIKE', '%' . $search . '%'))
+                ->where('name', 'LIKE', '%'.$search.'%'))
             ->paginate(5);
+
         return BuffetResource::collection($buffets);
     }
 

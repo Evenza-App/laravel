@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\StripeHelper;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Stripe\Exception\CardException;
 
 class CheckoutController extends Controller
@@ -23,11 +23,11 @@ class CheckoutController extends Controller
             return response()->noContent();
         } catch (CardException $e) {
             return response([
-                'errors' => $e->getMessage()
+                'errors' => $e->getMessage(),
             ], 500);
         } catch (\Error $e) {
             return response([
-                'errors' => $e->getMessage()
+                'errors' => $e->getMessage(),
             ], 500);
         }
     }

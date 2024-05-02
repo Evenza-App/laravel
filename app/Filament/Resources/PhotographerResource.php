@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PhotographerResource\Pages;
-use App\Filament\Resources\PhotographerResource\RelationManagers;
 use App\Models\Photographer;
 use App\Traits\Filament\HasTranslations;
 use Filament\Forms;
@@ -11,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PhotographerResource extends Resource
 {
@@ -31,7 +28,6 @@ class PhotographerResource extends Resource
     protected static ?string $slug = 'photographers';
 
     protected static ?string $navigationGroup = 'System Management';
-
 
     public static function form(Form $form): Form
     {
@@ -58,7 +54,7 @@ class PhotographerResource extends Resource
                             ->multiple()
                             ->imageEditor()
                             ->columnSpanFull(),
-                    ])
+                    ]),
             ])->columns(2);
     }
 
@@ -83,12 +79,6 @@ class PhotographerResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-
-
-
-
-
-
 
             // ->columns([
             //     Tables\Columns\Layout\Split::make([

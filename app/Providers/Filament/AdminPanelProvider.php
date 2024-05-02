@@ -60,7 +60,7 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->brandName('Evenza')
-            ->brandLogo(asset('images/evenza-logo-Light-mode.png'),)
+            ->brandLogo(asset('images/evenza-logo-Light-mode.png'))
             ->brandLogoHeight('2.50rem')
             ->darkModeBrandLogo(asset('images/evenza-Logo-dark-mode.png'))
             ->favicon(asset('images/Evenza-logo-favicon.png'))

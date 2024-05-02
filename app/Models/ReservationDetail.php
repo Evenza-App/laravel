@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ReservationDetail extends Model
 {
     use HasFactory;
-
 
     protected $fillable = ['value', 'event_detail_id', 'reservation_id'];
 
@@ -21,22 +20,16 @@ class ReservationDetail extends Model
         );
     }
 
-
     /**
      * Get the user that owns the ReservationDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function eventdetail(): BelongsTo
     {
         return $this->belongsTo(EventDetail::class, 'event_detail_id');
     }
 
-
     /**
      * Get the user that owns the ReservationDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function reservation(): BelongsTo
     {

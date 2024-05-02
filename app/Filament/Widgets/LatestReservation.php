@@ -2,10 +2,9 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\ReservationResource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Tables\Filters\SelectFilter;
-use App\Filament\Resources\ReservationResource;
 use Filament\Widgets\TableWidget as BaseWidget;
 
 class LatestReservation extends BaseWidget
@@ -14,7 +13,7 @@ class LatestReservation extends BaseWidget
 
     protected static ?int $sort = 3;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {
@@ -53,13 +52,13 @@ class LatestReservation extends BaseWidget
                         'heroicon-m-face-frown' => 'مرفوض',
                         'heroicon-m-arrow-left-start-on-rectangle' => 'قيد المعالجة',
                         'heroicon-m-banknotes' => 'بحالة الدفع',
-                        'heroicon-m-check-circle' => 'اكتمل الحجز'
+                        'heroicon-m-check-circle' => 'اكتمل الحجز',
                     ])
                     ->colors([
                         'success' => 'مقبول',
                         'danger' => 'مرفوض',
                         'warning' => 'قيد المعالجة',
-                        'pink' =>  'بحالة الدفع',
+                        'pink' => 'بحالة الدفع',
                     ])
                     ->label('حالة الحجز')
                     ->searchable(),

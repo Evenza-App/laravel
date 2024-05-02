@@ -15,7 +15,7 @@ class PhotographerResource extends JsonResource
     public function toArray(Request $request): array
     {
         //return parent::toArray($request);
-        return ([
+        return [
 
             'id' => $this->id,
             'name' => $this->name,
@@ -24,8 +24,6 @@ class PhotographerResource extends JsonResource
             // 'numOfhours' => $this->numOfhours,
             'images' => $this->images,
 
-
-
-        ]);
+        ];
     }
 }

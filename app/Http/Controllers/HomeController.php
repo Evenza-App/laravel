@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EventDetailRequest;
-use App\Models\Event;
-use App\Models\Reservation;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\EventResource;
-use App\Http\Resources\ReservationResource;
-use Illuminate\Cache\RateLimiting\Limit;
+use App\Models\Event;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -28,6 +24,7 @@ class HomeController extends Controller
             ->orderByDesc('reservations_count')
             ->take(4)
             ->get());
+
         return response()->json([
             'latestevents' => $latestevents,
             'trends' => $trends,

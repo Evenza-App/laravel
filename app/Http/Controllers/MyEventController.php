@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MyEventDetailsResource;
+use App\Http\Resources\MyEventResource;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,12 @@ class MyEventController extends Controller
     {
         $user = $request->user();
         $reservations = $user->reservations()->get();
-        return response()->json($reservations);
+
+        // return response()->json($reservations);
+        // $events = Event::paginate();
+
+        return MyEventResource::collection($reservations);
+        // $events = Event::paginate();
     }
 
     /**
@@ -28,10 +35,14 @@ class MyEventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Reservation $reservation)
     {
         // $reservation = Reservation::findOrFail($id);
         // return response()->json($reservation);
+        //  return MyEventResource::make($request);
+        // $reservation->load('details');
+        //return new EventDetailResource($event->details());
+        return MyEventDetailsResource::make($reservation);
     }
 
     /**

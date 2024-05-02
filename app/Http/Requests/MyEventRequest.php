@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EventDetailRequest extends FormRequest
+class MyEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,12 +22,7 @@ class EventDetailRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'type' => ['required', 'string'],
-            'options' => ['required', 'json'],
-            'is_required' => ['required', 'boolean'],
-            'event_id' => ['required', 'integer', 'exists:events,id'],
-
+            //
         ];
     }
 }

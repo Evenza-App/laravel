@@ -33,7 +33,6 @@ class ReservationController extends Controller
     public function store(ReservationRequest $request)
     {
 
-
         $data = $request->validated() + ['user_id' => auth()->id()];
         // $file = $request->file('image');
         // $data['image'] = Str::random() . ".{$file->extension()}";
@@ -50,9 +49,10 @@ class ReservationController extends Controller
             ->actions([
                 Action::make('go_to')
                     ->label('الذهاب إلى الحجوزات')
-                    ->url(ResourcesReservationResource::getUrl())
+                    ->url(ResourcesReservationResource::getUrl()),
             ])
             ->sendToDatabase(User::find(1));
+
         return $reservation;
         // $reservation = Reservation::find(5);
         // $reservation->buffets()->sync(array(1, 2, 3));
