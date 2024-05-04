@@ -3,23 +3,36 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Traits\Models\HasFcmToken;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasName
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use Billable;
+    use HasApiTokens, HasFactory, Notifiable;
+    use HasFcmToken;
 
+    public function getFilamentName(): string
+    {
+        return "{$this->admin->name}";
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {
-        // return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
-        return true;
+        if ($panel->getId() == 'admin' && $this->admin) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -57,11 +70,25 @@ class User extends Authenticatable implements FilamentUser
 
     /**
      * Get the customer associated with the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
+    }
+
+    /**
+     * Get the user associated with the User
+     */
+    public function admin(): HasOne
+    {
+        return $this->hasOne(Admin::class);
+    }
+
+    /**
+     * Get all of the comments for the User
+     */
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
     }
 }
