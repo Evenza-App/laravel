@@ -10,6 +10,7 @@ use App\Http\Controllers\MyEventController;
 use App\Http\Controllers\MyEventDetailsController;
 use App\Http\Controllers\PhotographerController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Middleware\ApiMiddleware;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::middleware(ApiMiddleware::class)->group(function () {
+});
 
 Route::apiResource('customer', CustomerController::class);
 

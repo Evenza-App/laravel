@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AdminSeeder::class,
+            ApiCredintialSeeder::class,
             CustomerSeeder::class,
             CategorySeeder::class,
             EventSeeder::class,
