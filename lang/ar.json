@@ -60,5 +60,9 @@
     "updated_at": "عدل بتاريخ ",
     "ingredients": "المكونات ",
     "total_price": "المبلغ الكلي",
-    "message": "ملاحظة "
+    "message": "ملاحظة ",
+    "Pending": "قيد المعالجة",
+    "Rejected": "مرفوض",
+    "NeedPayment": "بحالة الدفع",
+    "Accepted": "مقبول"
 }

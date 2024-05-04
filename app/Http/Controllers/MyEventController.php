@@ -15,7 +15,7 @@ class MyEventController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $reservations = $user->reservations()->get();
+        $reservations = $user->reservations;
 
         // return response()->json($reservations);
         // $events = Event::paginate();
@@ -37,11 +37,12 @@ class MyEventController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        // $reservation = Reservation::findOrFail($id);
+        // $reservation = Reservation::findOrFail($reservation);
         // return response()->json($reservation);
         //  return MyEventResource::make($request);
         // $reservation->load('details');
         //return new EventDetailResource($event->details());
+        //   $reservation->load('reservation');
         return MyEventDetailsResource::make($reservation);
     }
 

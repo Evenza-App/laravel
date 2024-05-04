@@ -54,9 +54,8 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([7, 2, 10, 3, 15, 4, 17])
                 ->color('orange'),
-
             // Stat::make('الحجوزات التي قيد المعالجة ', Reservation::where('status', 'قيد المعالجة')->count())
-            Stat::make('الحجوزات التي تم قبولها ', Reservation::where('status', 'مقبول')->count())
+            Stat::make('الحجوزات التي تم قبولها ', Reservation::where('status', 'Accepted')->count())
                 ->description(' بازدياد')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([7, 6, 10, 8, 15, 25, 17])

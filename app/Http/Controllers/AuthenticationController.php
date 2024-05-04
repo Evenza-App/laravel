@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\LogoutRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticationController extends Controller
 {
@@ -17,13 +20,15 @@ class AuthenticationController extends Controller
 
         $user = User::query()->where('email', $request->email)->first();
 
-        if (! Hash::check($request->password, $user->password)) {
+        if (!Hash::check($request->password, $user->password)) {
             return response([
                 'message' => 'unauthenticated',
             ], status: 401);
         }
 
         $token = $user->createToken('token')->plainTextToken;
+
+        $user->fcmTokens()->create(['token' => $request->fcm_token]);
 
         return response([
             'token' => $token,
@@ -41,14 +46,20 @@ class AuthenticationController extends Controller
 
         $token = $user->createToken('token')->plainTextToken;
 
+        $user->fcmTokens()->create(['token' => $request->fcm_token]);
+
+
         return response([
             'token' => $token,
         ]);
     }
 
-    public function logout()
+    public function logout(LogoutRequest $request)
+
     {
-        Auth::user()->currentAccessToken()->delete();
+        //Auth::user()->currentAccessToken()->delete();
+
+        Auth::user()->fcmTokens()->where('token', $request->fcm_token)->delete();
 
         return response([
             'message' => 'logout successfully',

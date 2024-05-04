@@ -19,7 +19,7 @@ class User extends Authenticatable implements FilamentUser, HasName
 {
     use Billable;
     use HasApiTokens, HasFactory, Notifiable;
-    //use HasFcmToken;
+    use HasFcmToken;
 
     public function getFilamentName(): string
     {

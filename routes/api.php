@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyEventController;
+use App\Http\Controllers\MyEventDetailsController;
 use App\Http\Controllers\PhotographerController;
 use App\Http\Controllers\ReservationController;
 use App\Models\Event;
@@ -49,7 +50,9 @@ Route::apiResource('home', HomeController::class);
 
 Route::apiResource('myevents', MyEventController::class)
     ->middleware('auth:sanctum');
-Route::get('myevents/{myevent}', [MyEventController::class, 'show']);
+//Route::apiResource('myevents', MyEventDetailsController::class)
+//->middleware('auth:sanctum');
+//Route::get('myevents/{myevent}', [MyEventDetailsController::class, 'show']);
 
 // Route::get('popular', function () {
 //     $popular = Event::query()

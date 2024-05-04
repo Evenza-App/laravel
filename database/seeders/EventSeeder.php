@@ -20,12 +20,12 @@ class EventSeeder extends Seeder
         // ]);
         Event::query()->delete();
         $events = [
-            ['name' => 'عيد ميلاد', 'image' => 'birthday.png'],
-            ['name' => ' افتتاح ', 'image' => 'افتتاح.png'],
-            ['name' => 'حفل زفاف', 'image' => 'زواج.png'],
-            ['name' => 'حفلة خطوبة', 'image' => 'خطبة.png'],
-            ['name' => 'حفلة تحديد جنس المولود', 'image' => 'تحديد حنس المولود.png'],
-            ['name' => 'حفلة تخرج', 'image' => 'تخرج.png'],
+            ['name' => 'عيد ميلاد', 'image' => 'عيد ميلاد.png'],
+            ['name' => ' افتتاح ', 'image' => 'افتتاح .png'],
+            ['name' => 'حفل زفاف', 'image' => 'حفلة زفاف.png'],
+            ['name' => 'حفلة خطوبة', 'image' => 'حفلة خطوبة.png'],
+            ['name' => 'حفلة تحديد جنس المولود', 'image' => 'حفلة تحديد جنس المولود.png'],
+            ['name' => 'حفلة تخرج', 'image' => 'حفلة تخرج.png'],
         ];
         Event::insert($events);
     }

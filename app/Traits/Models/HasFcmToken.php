@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait HasFcmToken
 {
-    public function tokens(): HasMany
+    public function fcmTokens(): HasMany
     {
         return $this->hasMany(FcmToken::class);
     }

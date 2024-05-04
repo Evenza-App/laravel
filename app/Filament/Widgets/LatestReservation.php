@@ -19,6 +19,8 @@ class LatestReservation extends BaseWidget
     {
         return $table
             ->query(ReservationResource::getEloquentQuery())
+            ->modelLabel(__('Reservation'))
+            ->pluralModelLabel(__('Reservations'))
             ->defaultPaginationPageOption(5)
             ->defaultSort('created_at', 'desc')
 
@@ -48,17 +50,18 @@ class LatestReservation extends BaseWidget
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->icons([
-                        'heroicon-m-face-smile' => 'مقبول',
-                        'heroicon-m-face-frown' => 'مرفوض',
-                        'heroicon-m-arrow-left-start-on-rectangle' => 'قيد المعالجة',
-                        'heroicon-m-banknotes' => 'بحالة الدفع',
-                        'heroicon-m-check-circle' => 'اكتمل الحجز',
+                        'heroicon-m-face-smile' => 'Accepted',
+                        'heroicon-m-face-frown' => 'Rejected',
+                        'heroicon-m-arrow-left-start-on-rectangle' => 'Pending',
+                        'heroicon-m-banknotes' => 'NeedPayment',
+                        // 'heroicon-m-check-circle' => 'اكتمل الحجز',
                     ])
+                    ->formatStateUsing(fn ($state) => __($state))
                     ->colors([
-                        'success' => 'مقبول',
-                        'danger' => 'مرفوض',
-                        'warning' => 'قيد المعالجة',
-                        'pink' => 'بحالة الدفع',
+                        'success' => 'Accepted',
+                        'danger' => 'Rejected',
+                        'warning' => 'Pending',
+                        'pink' => 'NeedPayment',
                     ])
                     ->label('حالة الحجز')
                     ->searchable(),

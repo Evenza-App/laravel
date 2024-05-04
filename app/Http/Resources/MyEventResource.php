@@ -16,8 +16,10 @@ class MyEventResource extends JsonResource
     {
         //return parent::toArray($request);
         return [
+            'id' => $this->id,
             'image' => $this->image,
             'date' => $this->date,
+            'location' => $this->location,
             'event' => $this->event->name,
         ];
     }

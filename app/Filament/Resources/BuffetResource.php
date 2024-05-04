@@ -53,7 +53,8 @@ class BuffetResource extends Resource
                         Forms\Components\TextInput::make('price')
                             ->required()
                             ->numeric()
-                            ->prefix('ل.س'),
+                            //->prefix('ل.س'),
+                            ->prefix('$'),
                         Forms\Components\Select::make('category_id')
                             ->relationship('category', 'name')
                             ->required(),
@@ -78,7 +79,8 @@ class BuffetResource extends Resource
                     ->searchable(),
                 //->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('price')
-                    ->formatStateUsing(fn ($state) => "{$state} ل.س ")
+                    //->formatStateUsing(fn ($state) => "{$state} ل.س ")
+                    ->formatStateUsing(fn ($state) => "{$state} $")
                     ->icon('heroicon-m-banknotes')
                     ->iconColor('success')
                     ->sortable(),

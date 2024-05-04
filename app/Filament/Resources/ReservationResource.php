@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\ReservationStatusEnum;
 use App\Filament\Resources\ReservationResource\Pages;
+use App\Jobs\SendFcmWhenChangeReservationStatusJob;
 use App\Models\Payment;
 use App\Models\Reservation;
 use App\Traits\Filament\HasTranslations;
@@ -161,7 +163,7 @@ class ReservationResource extends Resource
                         RepeatableEntry::make('Buffets')
                             ->schema([
                                 TextEntry::make('name')->label('اسم البوفيه'),
-                            ])->columns(2),
+                            ])->columnSpan(2)->columns(2),
                     ])->collapsible(),
                 Section::make(' معلومات الديكور     ')
                     ->description(' المعلومات التي قام الزبون ب تعبئتها ')
@@ -174,7 +176,8 @@ class ReservationResource extends Resource
                     ])->collapsible(),
                 Section::make(' معلومات الدفع ')
                     //->hidden()->when('status', 'بحالة الدفع')
-                    ->hidden(fn (Forms\Get $get) => $get('status') != 'بحالة الدفع')
+                    //  ->hidden(fn (Forms\Get $get) => $get('status') != 'بحالة الدفع')
+                    ->hidden(fn (Reservation $record) => $record->status !== 'NeedPayment')
                     //  ->description('')
                     ->schema([
                         TextEntry::make('payment.total_price'),
@@ -213,30 +216,31 @@ class ReservationResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
+                    ->formatStateUsing(fn ($state) => __($state))
                     //->getStateUsing(fn (Reservation $record): string => $record->status?->'مقبول' ? 'مرفوض' : 'مقبول')
                     ->getStateUsing(function (Reservation $record) {
-                        if ($record->status == 'مقبول') {
-                            return 'مقبول';
-                        } elseif ($record->status == 'مرفوض') {
-                            return 'مرفوض';
-                        } elseif ($record->status == 'قيد المعالجة') {
-                            return 'قيد المعالجة';
-                        } elseif ($record->status == 'بحالة الدفع') {
-                            return 'بحالة الدفع';
+                        if ($record->status == 'Accepted') {
+                            return 'Accepted';
+                        } elseif ($record->status == 'Rejected') {
+                            return 'Rejected';
+                        } elseif ($record->status == 'Pending') {
+                            return 'Pending';
+                        } elseif ($record->status == 'NeedPayment') {
+                            return 'NeedPayment';
                         }
                     })
                     ->icons([
-                        'heroicon-m-face-smile' => 'مقبول',
-                        'heroicon-m-face-frown' => 'مرفوض',
-                        'heroicon-m-arrow-left-start-on-rectangle' => 'قيد المعالجة',
-                        'heroicon-m-banknotes' => 'بحالة الدفع',
+                        'heroicon-m-face-smile' => 'Accepted',
+                        'heroicon-m-face-frown' => 'Rejected',
+                        'heroicon-m-arrow-left-start-on-rectangle' => 'Pending',
+                        'heroicon-m-banknotes' => 'NeedPayment',
                         // 'heroicon-m-banknotes'   => 'مكتمل'
                     ])
                     ->colors([
-                        'success' => 'مقبول',
-                        'danger' => 'مرفوض',
-                        'warning' => 'قيد المعالجة',
-                        'pink' => 'بحالة الدفع',
+                        'success' => 'Accepted',
+                        'danger' => 'Rejected',
+                        'warning' => 'Pending',
+                        'pink' => 'NeedPayment',
                         //'success' => 'مكتمل',
                     ])
                     ->searchable(),
@@ -333,25 +337,27 @@ class ReservationResource extends Resource
                         ->color('danger')
                         ->icon('heroicon-c-face-frown')
                         ->requiresConfirmation()
-                        ->hidden(fn (Reservation $record) => $record->status !== 'قيد المعالجة')
+                        ->hidden(fn (Reservation $record) => $record->status !== 'Pending')
                         ->action(function (Reservation $record) {
-                            $record->status = 'مرفوض';
+                            $record->status = 'Rejected';
                             $record->save();
+                            SendFcmWhenChangeReservationStatusJob::dispatch(ReservationStatusEnum::Rejected, $record->user_id);
                             Notification::make('رفض')
                                 ->title('تم رفض الحجز')
                                 ->body("حجز يوم {$record->date} تم رفضه")
                                 ->success()
                                 ->send();
                         }),
-                    Tables\Actions\Action::make('بحالة الدفع')
-                        ->label('بحالة الدفع')
-                        ->color('pink')
-                        ->icon('heroicon-c-banknotes')
+                    Tables\Actions\Action::make(' تم القبول')
+                        ->label(' تم القبول')
+                        ->color('success')
+                        ->icon('heroicon-c-check-circle')
                         ->requiresConfirmation()
-                        ->hidden(fn (Reservation $record) => $record->status !== 'مقبول')
+                        ->hidden(fn (Reservation $record) => $record->status !== 'NeedPayment')
                         ->action(function (Reservation $record) {
-                            $record->status = 'مكتمل';
+                            $record->status = 'Accepted';
                             $record->save();
+                            SendFcmWhenChangeReservationStatusJob::dispatch(ReservationStatusEnum::Accepted, $record->user_id);
                             Notification::make('الدفع')
                                 ->title('تم الدفع للحجز')
                                 ->body("لهذا الحجز {$record->date} تم الدفع")
@@ -359,23 +365,23 @@ class ReservationResource extends Resource
                                 ->send();
                         }),
 
-                    Tables\Actions\Action::make('مكتمل')
-                        ->label('اكتمال الحجز')
-                        ->color('pink')
-                        ->icon('heroicon-c-check-circle')
-                        ->requiresConfirmation()
-                        ->hidden(fn (Reservation $record) => $record->status !== 'بحالة الدفع')
-                        ->action(function (Reservation $record) {
-                            $record->status = 'مقبول';
-                            $record->save();
-                            Notification::make('الدفع')
-                                ->title('تم الدفع للحجز')
-                                ->body("لهذا الحجز {$record->date} تم الدفع")
-                                ->success()
-                                ->send();
-                        }),
-                    Tables\Actions\Action::make('قبول')
-                        ->label('قبول')
+                    // Tables\Actions\Action::make('مقبول')
+                    //     ->label(' تم القبول')
+                    //     ->color('success')
+                    //     ->icon('heroicon-c-check-circle')
+                    //     ->requiresConfirmation()
+                    //     ->hidden(fn (Reservation $record) => $record->status !== 'بحالة الدفع')
+                    //     ->action(function (Reservation $record) {
+                    //         $record->status = 'مقبول';
+                    //         $record->save();
+                    //         Notification::make('الدفع')
+                    //             ->title('تم الدفع للحجز')
+                    //             ->body("لهذا الحجز {$record->date} تم الدفع")
+                    //             ->success()
+                    //             ->send();
+                    //     }),
+                    Tables\Actions\Action::make(' قبول')
+                        ->label('قبول ')
                         ->color('success')
                         ->icon('heroicon-c-face-smile')
                         ->requiresConfirmation()
@@ -385,16 +391,17 @@ class ReservationResource extends Resource
                             TextInput::make('total_price')
                                 ->required()
                                 ->numeric()
-                                ->prefix('ل.س'),
+                                ->prefix('$'),
                             TextInput::make('message'),
                         ])
                         // ->modalContent(view(''))
                         //->modalSubmitAction()
                         ->modalSubmitActionLabel('إرسال ')
-                        ->hidden(fn (Reservation $record) => $record->status !== 'قيد المعالجة')
+                        ->hidden(fn (Reservation $record) => $record->status !== 'Pending')
                         ->action(function (array $data, Reservation $record): void {
-                            $record->status = 'بحالة الدفع';
+                            $record->status = 'NeedPayment';
                             $record->save();
+                            SendFcmWhenChangeReservationStatusJob::dispatch(ReservationStatusEnum::NeedPayment, $record->user_id);
                             $record->total_price = 'total_price';
                             $record->message = 'message';
                             $record->Payment()->create($data);

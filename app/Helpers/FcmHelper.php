@@ -50,4 +50,30 @@ class FcmHelper
             dump($res->body());
         }
     }
+
+    public static function sendToTopic(string $topic, string $title, string $body, ?string $image = null): void
+    {
+        $payload['message'] = [
+            "to" => "/topics/$topic",
+            'notification' => [
+                'title' => $title,
+                'body' => $body,
+            ],
+            'android' => [
+                'notification' => [
+                    'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+                    'title' => $title,
+                    'body' => $body,
+                    'image' => $image,
+                ],
+            ],
+            'apns' => [
+                'fcm_options' => [
+                    'image' => $image,
+                ],
+            ],
+        ];
+        $res = Http::withHeaders(static::getFcmHeader())
+            ->post(static::getFcmApiUrl(), $payload);
+    }
 }

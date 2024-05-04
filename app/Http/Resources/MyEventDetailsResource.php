@@ -16,16 +16,15 @@ class MyEventDetailsResource extends JsonResource
     {
         //return parent::toArray($request);
         return [
-            // 'id' => $this->id,
+            'id' => $this->id,
             'image' => $this->image,
-            //'status' => $this->status,
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
             'date' => $this->date,
+            'location' => $this->location,
             'number_of_people' => $this->number_of_people,
-            'event' => $this->event->name,
-            'photographer' => $this->photographer->name,
-            // 'user' => $this->user->email,
+            'event' => $this->event?->name,
+            'photographer' => $this->photographer?->name,
         ];
     }
 }

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('location');
             $table->integer('number_of_people');
             //  $table->string('image');
-            $table->string('status')->default('قيد المعالجة');
+            $table->string('status')->default('Pending');
             $table->foreignIdFor(Event::class)
                 ->constrained()
                 ->cascadeOnDelete()

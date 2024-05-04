@@ -31,6 +31,7 @@ class RegisterRequest extends FormRequest
             'password' => [
                 'required', 'string', Password::defaults()->min(5)->max(10)
                     ->letters(),
+                'fcm_token' => ['required', 'string'],
                 // ->symbols()
                 // ->numbers()
             ],

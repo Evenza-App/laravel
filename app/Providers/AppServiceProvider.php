@@ -7,6 +7,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -85,6 +86,10 @@ class AppServiceProvider extends ServiceProvider
                 ->label(__($textColumn->getName()));
         });
         RepeatableEntry::configureUsing(function (RepeatableEntry $textColumn) {
+            $textColumn
+                ->label(__($textColumn->getName()));
+        });
+        Tab::configureUsing(function (Tab $textColumn) {
             $textColumn
                 ->label(__($textColumn->getName()));
         });

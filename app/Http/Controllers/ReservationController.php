@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filament\Resources\ReservationResource as ResourcesReservationResource;
 use App\Http\Requests\ReservationRequest;
+use App\Http\Resources\MyEventDetailsResource;
 use App\Http\Resources\ReservationResource;
 use App\Models\Reservation;
 use App\Models\User;
@@ -68,7 +69,7 @@ class ReservationController extends Controller
     public function show(Reservation $reservation)
     {
 
-        return ReservationResource::make($reservation);
+        return MyEventDetailsResource::make($reservation);
     }
 
     /**
