@@ -41,7 +41,9 @@ class SendFcmWhenAddNewEventJob implements ShouldQueue
             topic: 'all',
             title: $this->getTitle(),
             body: $this->getBody(),
-            image: asset('storage/' . $this->event->image),
+            image: $image = str(asset('storage/' . $this->event->image))->replaceFirst(config('app.url'), config('app.ngrok_url'))->value(),
         );
+
+        dump($image);
     }
 }

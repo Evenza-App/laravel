@@ -23,7 +23,7 @@ class SearchBuffetRequest extends FormRequest
     {
         return [
             'category' => ['required', 'integer', 'exists:categories,id'],
-            'type' => ['required', 'string', 'in: فطور ,غداء ,حلويات'],
+            // 'type' => ['required', 'string', 'in: فطور ,غداء ,حلويات'],
             'search' => ['nullable', 'string'],
         ];
     }

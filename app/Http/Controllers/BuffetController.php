@@ -18,7 +18,7 @@ class BuffetController extends Controller
             ->where('category_id', $Request->category)
             //->where('type', $Request->type)
             ->when($Request->search, fn ($query, $search) => $query
-                ->where('name', 'LIKE', '%'.$search.'%'))
+                ->where('name', 'LIKE', '%' . $search . '%'))
             ->paginate(5);
 
         return BuffetResource::collection($buffets);

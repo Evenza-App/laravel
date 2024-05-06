@@ -21,10 +21,15 @@ class MyEventDetailsResource extends JsonResource
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
             'date' => $this->date,
+            'status' => $this->status,
             'location' => $this->location,
             'number_of_people' => $this->number_of_people,
             'event' => $this->event?->name,
             'photographer' => $this->photographer?->name,
+            'buffet' => BuffetResource::collection($this->whenLoaded('buffets')),
+            //'details' => EventDetailResource::collection($this->whenLoaded('details')),
+            'details' => ReservationDetailResource::collection($this->whenLoaded('details')),
+
         ];
     }
 }

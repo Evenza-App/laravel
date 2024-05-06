@@ -35,9 +35,9 @@ class ReservationController extends Controller
     {
 
         $data = $request->validated() + ['user_id' => auth()->id()];
-        // $file = $request->file('image');
-        // $data['image'] = Str::random() . ".{$file->extension()}";
-        // $file->storeAs('public', $data['image']);
+        $file = $request->file('image');
+        $data['image'] = Str::random() . ".{$file->extension()}";
+        $file->storeAs('public', $data['image']);
         $reservation = Reservation::create($data);
         $reservation->buffets()->attach($request->buffet_ids);
         foreach ($request->details as $detail) {
@@ -54,7 +54,7 @@ class ReservationController extends Controller
             ])
             ->sendToDatabase(User::find(1));
 
-        return $reservation;
+        return ReservationResource::make($reservation);
         // $reservation = Reservation::find(5);
         // $reservation->buffets()->sync(array(1, 2, 3));
 
@@ -62,12 +62,21 @@ class ReservationController extends Controller
         // $reservation->buffets()->attach($buffet_id);
 
     }
+    public function pay(Reservation $reservation)
+    {
+        $reservation->is_paid = true;
+        $reservation->save();
+
+        return response()->noContent();
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(Reservation $reservation)
     {
+        $reservation->load('details');
+        $reservation->load('buffets');
 
         return MyEventDetailsResource::make($reservation);
     }

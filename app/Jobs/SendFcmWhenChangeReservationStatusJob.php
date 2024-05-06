@@ -66,7 +66,7 @@ class SendFcmWhenChangeReservationStatusJob implements ShouldQueue
 
         $dtos = [];
 
-        foreach ($user->fcmTokens as $token) {
+        foreach ($user->fcmTokens()->pluck('token') as $token) {
             $dtos[] = new FcmDTO(
                 token: $token,
                 title: $this->getTitle(),

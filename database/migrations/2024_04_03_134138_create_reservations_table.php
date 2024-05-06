@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Event;
+use App\Models\Payment;
 use App\Models\Photographer;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -21,14 +22,14 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->text('location');
+            $table->boolean('is_paid')->default(0);
             $table->integer('number_of_people');
-            //  $table->string('image');
             $table->string('status')->default('Pending');
             $table->foreignIdFor(Event::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->foreignIdFor(Photographer::class)
+            $table->foreignIdFor(Photographer::class)->nullable()
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyEventController;
 use App\Http\Controllers\MyEventDetailsController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PhotographerController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Middleware\ApiMiddleware;
@@ -22,11 +23,13 @@ Route::get('/user', function (Request $request) {
 Route::middleware(ApiMiddleware::class)->group(function () {
 });
 
-Route::apiResource('customer', CustomerController::class);
+Route::apiResource('profile', CustomerController::class)
+    ->middleware('auth:sanctum');
 
 // Route::get('customer/{customer}', [CustomerController::class, 'show']);
 
-Route::Post('customer/{customer}', [CustomerController::class, 'update']);
+Route::Post('profile', [CustomerController::class, 'update'])
+    ->middleware('auth:sanctum');
 
 // Route::Put('customer/{customer}', [CustomerController::class, 'update']);
 
@@ -47,13 +50,16 @@ Route::apiResource('events', EventController::class);
 
 Route::get('events/{event}', [EventController::class, 'show']);
 
-Route::apiResource('reservations', ReservationController::class)
+Route::apiResource('reservation', ReservationController::class)
     ->middleware('auth:sanctum');
 
 Route::apiResource('home', HomeController::class);
 
 Route::apiResource('myevents', MyEventController::class)
     ->middleware('auth:sanctum');
+
+Route::post('reservation/{reservation}/pay', [ReservationController::class, 'pay']);
+
 //Route::apiResource('myevents', MyEventDetailsController::class)
 //->middleware('auth:sanctum');
 //Route::get('myevents/{myevent}', [MyEventDetailsController::class, 'show']);

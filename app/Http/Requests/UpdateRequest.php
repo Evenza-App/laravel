@@ -29,7 +29,7 @@ class UpdateRequest extends FormRequest
             'phone' => ['required', 'string', 'min:10', 'max:10'],
             'address' => ['required', 'string'],
             'password' => [
-                'required', 'string', Password::defaults()->min(5)->max(10)
+                'required', 'string', Password::defaults()->min(5)->max(25)
                     ->letters(),
             ],
         ];

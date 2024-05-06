@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Traits\Models\HasImage;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +17,19 @@ class Reservation extends Model
     use HasFactory;
     use HasImage;
 
-    protected $fillable = ['image', 'date', 'start_time', 'end_time', 'location', 'number_of_people', 'status', 'event_id', 'photographer_id', 'user_id'];
+    protected $fillable = ['image', 'date', 'start_time', 'end_time', 'location', 'number_of_people', 'status', 'event_id', 'photographer_id', 'user_id', 'is_paid'];
+
+
+    protected $casts = [
+        'is_paid' => 'boolean',
+    ];
+
+    public function status(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => Carbon::parse($this->date)->isPast() ? 'Passed' : $value,
+        );
+    }
 
     /**
      * The roles that belong to the Reservation

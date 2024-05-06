@@ -12,8 +12,6 @@ class FcmHelper
     {
         $projectId = config('fcm.project_id');
 
-        dump("https://fcm.googleapis.com/v1/projects/$projectId/messages:send");
-
         throw_if(empty($projectId), new Exception('You did\'t provide any project id yet'));
 
         return "https://fcm.googleapis.com/v1/projects/$projectId/messages:send";
@@ -30,11 +28,6 @@ class FcmHelper
         $token = $client->getAccessToken();
         $access_token = $token['access_token'];
 
-        dump([
-            'Authorization' => "Bearer $access_token",
-            'Content-Type' => 'application/json',
-        ]);
-
         return [
             'Authorization' => "Bearer $access_token",
             'Content-Type' => 'application/json',
@@ -45,16 +38,15 @@ class FcmHelper
     {
         foreach ($dtos as $dto) {
             $payload['message'] = $dto->toArray();
-            $res = Http::withHeaders(static::getFcmHeader())
+            Http::withHeaders(static::getFcmHeader())
                 ->post(static::getFcmApiUrl(), $payload);
-            dump($res->body());
         }
     }
 
     public static function sendToTopic(string $topic, string $title, string $body, ?string $image = null): void
     {
         $payload['message'] = [
-            "to" => "/topics/$topic",
+            "topic" => $topic,
             'notification' => [
                 'title' => $title,
                 'body' => $body,
@@ -73,7 +65,7 @@ class FcmHelper
                 ],
             ],
         ];
-        $res = Http::withHeaders(static::getFcmHeader())
+        Http::withHeaders(static::getFcmHeader())
             ->post(static::getFcmApiUrl(), $payload);
     }
 }
