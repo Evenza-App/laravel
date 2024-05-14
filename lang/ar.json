@@ -64,5 +64,6 @@
     "Pending": "قيد المعالجة",
     "Rejected": "مرفوض",
     "NeedPayment": "بحالة الدفع",
-    "Accepted": "مقبول"
+    "Accepted": "مقبول",
+    "Passed": "تم تمريره"
 }

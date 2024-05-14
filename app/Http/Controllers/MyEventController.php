@@ -16,11 +16,16 @@ class MyEventController extends Controller
     {
         $user = $request->user();
         $reservations = $user->reservations;
+        // $reservations = MyEventResource::collection(Reservation::orderByDesc('date')->get());
+        $reservations = MyEventResource::collection($reservations);
 
         // return response()->json($reservations);
         // $events = Event::paginate();
 
-        return MyEventResource::collection($reservations);
+        // return MyEventResource::collection($reservations)->orderBy('id');
+        return response()->json([
+            'reservations' => $reservations,
+        ]);
         // $events = Event::paginate();
     }
 
@@ -43,6 +48,11 @@ class MyEventController extends Controller
         // $reservation->load('details');
         //return new EventDetailResource($event->details());
         //   $reservation->load('reservation');
+        //return MyEventDetailsResource::make($reservation);
+
+        $reservation->load('details');
+        $reservation->load('buffets');
+
         return MyEventDetailsResource::make($reservation);
     }
 

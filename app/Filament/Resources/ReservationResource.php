@@ -101,9 +101,11 @@ class ReservationResource extends Resource
                             ->maxLength(255),
                         Forms\Components\Select::make('event_id')
                             ->relationship('event', 'name')
+                            ->searchable()
                             ->required(),
                         Forms\Components\Select::make('photographer_id')
                             ->relationship('photographer', 'name')
+                            ->searchable()
                             ->required(),
 
                     ])->columns(2),
@@ -227,6 +229,8 @@ class ReservationResource extends Resource
                             return 'Pending';
                         } elseif ($record->status == 'NeedPayment') {
                             return 'NeedPayment';
+                        } elseif ($record->status == 'Passed') {
+                            return 'Passed';
                         }
                     })
                     ->icons([
@@ -245,9 +249,11 @@ class ReservationResource extends Resource
                     ])
                     ->searchable(),
                 Tables\Columns\TextColumn::make('event.name')
+                    ->searchable()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('photographer.name')
+                    ->searchable()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.email')

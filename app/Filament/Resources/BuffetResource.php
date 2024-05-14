@@ -50,11 +50,11 @@ class BuffetResource extends Resource
                         Forms\Components\TextInput::make('type')
                             ->required()
                             ->maxLength(255),
-                        // Forms\Components\TextInput::make('price')
-                        //     ->required()
-                        //     ->numeric()
-                        //     //->prefix('ل.س'),
-                        //     ->prefix('$'),
+                        Forms\Components\TextInput::make('price')
+                            ->required()
+                            ->numeric()
+                            //->prefix('ل.س'),
+                            ->prefix('$'),
                         Forms\Components\Select::make('category_id')
                             ->relationship('category', 'name')
                             ->required(),
@@ -78,12 +78,12 @@ class BuffetResource extends Resource
                 Tables\Columns\TextColumn::make('type')
                     ->searchable(),
                 //->searchable(isIndividual: true),
-                // Tables\Columns\TextColumn::make('price')
-                //     //->formatStateUsing(fn ($state) => "{$state} ل.س ")
-                //     ->formatStateUsing(fn ($state) => "{$state} $")
-                //     ->icon('heroicon-m-banknotes')
-                //     ->iconColor('success')
-                //     ->sortable(),
+                Tables\Columns\TextColumn::make('price')
+                    //->formatStateUsing(fn ($state) => "{$state} ل.س ")
+                    ->formatStateUsing(fn ($state) => "{$state} $")
+                    ->icon('heroicon-m-banknotes')
+                    ->iconColor('success')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

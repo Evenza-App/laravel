@@ -56,12 +56,16 @@ class CustomerController extends Controller
     public function update(UpdateRequest $request)
     {
         $user = $request->user();
-        $user->update($request->only(['email', 'password']));
+        /////  $user->update($request->only(['email', 'password']));
+        $user->update($request->only(['email']));
         //$data = $request->validated() + ['user_id' => auth()->id()];
         $data = $request->except(['email', 'password']);
         // $data = $request->email;
         $user->customer->update($data);
         ////  $user->update($data);
+        if ($request->password) {
+            $user->update($request->only(['password']));
+        }
         return ProfileResource::make($user->customer);
     }
     // public function update(UpdateRequest $request, $id)

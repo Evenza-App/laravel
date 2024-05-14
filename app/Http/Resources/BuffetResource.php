@@ -21,7 +21,7 @@ class BuffetResource extends JsonResource
             'ingredients' => $this->ingredients,
             'type' => $this->type,
             'image' => $this->image,
-            // 'price' => $this->price,
+            'price' => $this->price,
             'category' => $this->category->name,
 
         ];

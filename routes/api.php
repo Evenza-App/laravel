@@ -58,6 +58,8 @@ Route::apiResource('home', HomeController::class);
 Route::apiResource('myevents', MyEventController::class)
     ->middleware('auth:sanctum');
 
+Route::get('myevents/{myevent}', [MyEventController::class, 'show']);
+
 Route::post('reservation/{reservation}/pay', [ReservationController::class, 'pay']);
 
 //Route::apiResource('myevents', MyEventDetailsController::class)
