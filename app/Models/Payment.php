@@ -12,6 +12,13 @@ class Payment extends Model
 
     protected $fillable = ['total_price', 'message', 'reservation_id'];
 
+    protected $hidden = [
+        'reservation_id',
+        'created_at',
+        'updated_at',
+        'id',
+    ];
+
     /**
      * Get the user that owns the Payment
      */
