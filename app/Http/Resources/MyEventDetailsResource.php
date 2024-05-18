@@ -24,7 +24,7 @@ class MyEventDetailsResource extends JsonResource
             'status' => $this->status,
             'location' => $this->location,
             'number_of_people' => $this->number_of_people,
-            // 'payment' => array('message' => $this->payment->message, 'total' => $this->payment->total_price),
+            'payment' => $this->whenNotNull($this->payment),
             'event' => $this->event?->name,
             'photographer' => array('name' => $this->photographer?->name, 'image' => $this->photographer->image),
             'buffet' => BuffetResource::collection($this->whenLoaded('buffets')),

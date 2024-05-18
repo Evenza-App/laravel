@@ -67,6 +67,7 @@ class ReservationController extends Controller
     public function pay(Reservation $reservation)
     {
         $reservation->is_paid = true;
+        $reservation->status = 'Accepted';
         $reservation->save();
 
         return response()->noContent();
