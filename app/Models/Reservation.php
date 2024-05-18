@@ -27,7 +27,7 @@ class Reservation extends Model
     public function status(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => Carbon::parse($this->date)->isPast() ? 'Passed' : $value,
+            get: fn ($value) => Carbon::parse($this->date . ' ' . $this->end_time)->isPast() ? 'Passed' : $value,
         );
     }
 

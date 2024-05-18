@@ -8,6 +8,8 @@ git clone https://github.com/Evenza-App/laravel.git
 composer i
 
 php artisan migrate --seed
+
+php artisan storage:link
 ```
 - add stripe keys to .env file.
 - make folder called private and copy your fcm private key in it and call it fcm.json.
