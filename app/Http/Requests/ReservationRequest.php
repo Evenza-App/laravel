@@ -31,7 +31,7 @@ class ReservationRequest extends FormRequest
             //'is_paid' => ['required', 'string'],
             'event_id' => ['required', 'integer', 'exists:events,id'],
             'photographer_id' => ['nullable', 'integer', 'exists:photographers,id'],
-            'buffet_ids' => ['required', 'array'],
+            'buffet_ids' => ['array'],
             'buffet_ids.*' => ['integer', 'exists:buffets,id'],
             'details' => ['required', 'array'],
             'details.*.event_detail_id' => ['integer', 'exists:event_details,id'],

@@ -27,8 +27,12 @@ class ListReservations extends ListRecords
             'الكل' => Tab::make(),
             // ->badge(Reservation::query()->where('status', 'الكل')->count()),
             'قيد المعالجة' => Tab::make()
-                ->badge(Reservation::query()->where('status', 'Pending')->count())
-                ->query(fn ($query) => $query->where('status', 'Pending ')),
+                ->badge(Reservation::query()->where('status', 'Pending')
+                ->whereNot('date', '<', now())
+                ->count())
+                ->query(fn ($query) => $query->where('status', 'Pending')
+                ->whereNot('date', '<', now())
+            ),
             'مقبول' => Tab::make()
                 ->badge(Reservation::query()->where('status', 'Accepted')->count())
                 ->query(fn ($query) => $query->where('status', 'Accepted')),
@@ -40,8 +44,8 @@ class ListReservations extends ListRecords
                 ->query(fn ($query) => $query->where('status', 'NeedPayment')),
 
             'الحجوزات المؤرشفة' => Tab::make()
-                ->modifyQueryUsing(fn ($query) => $query->where('date', '<', now()))
-                ->badge(Reservation::query()->where('date', '<', now())->count()),
+                ->modifyQueryUsing(fn ($query) => $query->whereDate('date', '<', now()))
+                ->badge(Reservation::query()->whereDate('date', '<', now())->count()),
         ];
 
 
